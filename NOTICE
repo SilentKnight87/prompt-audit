@@ -1,0 +1,10 @@
+prompt-audit (harness-agnostic, multi-lab)
+
+The method in SKILL.md is derived from Anthropic's prompt-audit guide:
+  https://github.com/anthropics/skills/blob/main/skills/claude-api/shared/prompt-audit.md
+  (anthropics/skills, skills/claude-api, commit 8a1541c; added in f6656c1, PR #1557)
+  Licensed under the Apache License, Version 2.0.
+
+Changes: model guidance moved to a per-lab registry fetched at run time; a drift pass
+against live configuration; multi-harness surface inventory; public/private report split.
+The upstream text is fetched, not redistributed.

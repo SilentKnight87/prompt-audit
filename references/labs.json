@@ -1,0 +1,39 @@
+{
+  "_comment": "Pluggable target-model guidance registry. The skill never hardcodes guidance text: `prompt_audit.py fetch-guidance` downloads every source below at run time into the cache, stamps it with the fetch date and sha256, and extracts current model IDs from the `models` sources. `verified_on` is the last date a human confirmed the URL is the official, current source; the fetcher warns when it is older than `stale_after_days`. Add a lab by adding an entry; add a source by appending to `sources`.",
+  "stale_after_days": 45,
+  "labs": {
+    "anthropic": {
+      "match": ["^claude-", "^anthropic/", "opus", "sonnet", "haiku", "fable", "mythos"],
+      "sources": [
+        {"id": "anthropic-audit-method", "kind": "method", "url": "https://raw.githubusercontent.com/anthropics/skills/main/skills/claude-api/shared/prompt-audit.md", "verified_on": "2026-09-29", "note": "Base method (Apache-2.0). Public copy matched the Claude Code 2.1.284 bundled copy modulo model-name templating on 2026-09-29."},
+        {"id": "anthropic-migration", "kind": "migration", "url": "https://raw.githubusercontent.com/anthropics/skills/main/skills/claude-api/shared/model-migration.md", "verified_on": "2026-09-29", "note": "Per-target removal checklists. Read the section for the resolved target only."},
+        {"id": "anthropic-best-practices", "kind": "prompting", "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices.md", "verified_on": "2026-09-29"},
+        {"id": "anthropic-opus-5-5", "kind": "prompting", "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5.md", "verified_on": "2026-09-29", "applies_to": ["claude-opus-5-5"]},
+        {"id": "anthropic-whats-new-opus-5-5", "kind": "migration", "url": "https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5.md", "verified_on": "2026-09-29", "applies_to": ["claude-opus-5-5"]},
+        {"id": "anthropic-models", "kind": "models", "url": "https://platform.claude.com/docs/en/about-claude/models/overview.md", "verified_on": "2026-09-29", "model_id_regex": "claude-(?:opus|sonnet|haiku|fable|mythos)-[0-9][0-9a-z.-]*"}
+      ]
+    },
+    "openai": {
+      "match": ["^gpt-", "^openai", "^o[1-9]", "codex", "astra", "luna", "sol"],
+      "sources": [
+        {"id": "openai-astra-skills-prompts", "kind": "prompting", "url": "https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra", "verified_on": "2026-09-29", "applies_to": ["gpt-6-astra"], "note": "Official Sep 11 2026 guidance: short skill descriptions, progressive disclosure, no mandatory pre-reads, no generic test reminders, soften over-strong ask-first boundaries, define completion."},
+        {"id": "openai-codex-agents-md", "kind": "harness", "url": "https://developers.openai.com/codex/guides/agents-md", "verified_on": "2026-09-29", "note": "AGENTS.md discovery order and the 32 KiB project_doc_max_bytes cap."},
+        {"id": "openai-codex-skills", "kind": "harness", "url": "https://developers.openai.com/codex/skills", "verified_on": "2026-09-29"},
+        {"id": "openai-models", "kind": "models", "url": "https://developers.openai.com/api/docs/models", "verified_on": "2026-09-29", "model_id_regex": "gpt-[0-9][0-9a-z.-]*"}
+      ]
+    },
+    "google": {
+      "match": ["^gemini", "^google", "antigravity"],
+      "note": "The Google Cloud 'Gemini 3 prompting guide' page (search-indexed under docs.cloud.google.com/gemini-enterprise-agent-platform/...) returned 404 on 2026-09-29, so it is not registered. Its 'do not infer/guess over-indexes' advice is cited from the ai.google.dev page only where that page says the same.",
+      "sources": [
+        {"id": "google-prompting-strategies", "kind": "prompting", "url": "https://ai.google.dev/gemini-api/docs/prompting-strategies", "verified_on": "2026-09-29", "note": "Gemini 3 section: direct prompts, no persuasive language, constraints at the end for long context, keep temperature at default 1.0."},
+        {"id": "google-models", "kind": "models", "url": "https://ai.google.dev/gemini-api/docs/models", "verified_on": "2026-09-29", "model_id_regex": "gemini-[0-9][0-9a-z.-]*"}
+      ]
+    },
+    "open-weights": {
+      "match": ["deepseek", "glm", "kimi", "qwen", "llama", "mistral"],
+      "sources": [],
+      "note": "No first-party prompting guide registered. Files read only by these models are audited with the lab-neutral rows (Groups 2-4 and drift) and Group 1 at low confidence."
+    }
+  }
+}

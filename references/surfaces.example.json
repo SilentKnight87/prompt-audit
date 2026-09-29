@@ -1,0 +1,42 @@
+{
+  "_comment": "Example run config. Copy to <run>/surfaces.json and edit. Each surface is a set of instruction files plus the harness config that tells us which model reads them. Delete the harnesses you don't use.",
+  "exclude_globs": ["*/node_modules/*", "*/.git/*", "*/archive/*", "*.bak*"],
+  "vendor_manifests": ["~/.hermes/skills/.bundled_manifest"],
+  "vault_link_surfaces": [],
+  "deprecated_paths": [
+    {"path": "~/old/notes-location", "reason": "Moved to ~/notes; anything still pointing here reads stale context."}
+  ],
+  "configs": {
+    "hermes": {"default": "~/.hermes/config.yaml"},
+    "codex": "~/.codex/config.toml",
+    "claude_code": "~/.claude/settings.json",
+    "omp": "~/.omp/agent/config.yml"
+  },
+  "surfaces": [
+    {"id": "hermes-soul", "label": "Hermes persona", "harness": "hermes", "kind": "persona", "always_loaded": true,
+     "globs": ["~/.hermes/SOUL.md"],
+     "readers": [{"type": "hermes_profile", "profile": "default", "config": "~/.hermes/config.yaml"}]},
+    {"id": "hermes-skills", "label": "Hermes skills", "harness": "hermes", "kind": "skill", "root": "~/.hermes/skills",
+     "globs": ["~/.hermes/skills/**/SKILL.md"],
+     "readers": [{"type": "hermes_profile", "profile": "default", "config": "~/.hermes/config.yaml"}]},
+    {"id": "claude-global", "label": "Claude Code user instructions", "harness": "claude-code", "kind": "instructions", "always_loaded": true,
+     "globs": ["~/.claude/CLAUDE.md"],
+     "readers": [{"type": "claude_code", "config": "~/.claude/settings.json"}]},
+    {"id": "claude-skills", "label": "Claude Code skills", "harness": "claude-code", "kind": "skill", "root": "~/.claude/skills",
+     "globs": ["~/.claude/skills/**/SKILL.md"],
+     "readers": [{"type": "claude_code", "config": "~/.claude/settings.json"}]},
+    {"id": "codex-global", "label": "Codex user AGENTS.md", "harness": "codex", "kind": "instructions", "always_loaded": true,
+     "globs": ["~/.codex/AGENTS.md"],
+     "readers": [{"type": "codex", "config": "~/.codex/config.toml"}]},
+    {"id": "codex-skills", "label": "Codex skills", "harness": "codex", "kind": "skill", "root": "~/.agents/skills",
+     "globs": ["~/.codex/skills/**/SKILL.md", "~/.agents/skills/**/SKILL.md"],
+     "readers": [{"type": "codex", "config": "~/.codex/config.toml"}]},
+    {"id": "omp-global", "label": "OMP AGENTS.md", "harness": "omp", "kind": "instructions", "always_loaded": true,
+     "globs": ["~/.omp/agent/AGENTS.md"],
+     "readers": [{"type": "omp", "config": "~/.omp/agent/config.yml", "roles": ["default"]}]},
+    {"id": "repos", "label": "Repo instruction files", "harness": "multi", "kind": "instructions", "always_loaded": true,
+     "globs": ["~/projects/*/AGENTS.md", "~/projects/*/CLAUDE.md"],
+     "readers": [{"type": "claude_code", "config": "~/.claude/settings.json"},
+                 {"type": "codex", "config": "~/.codex/config.toml"}]}
+  ]
+}

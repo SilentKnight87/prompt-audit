@@ -1,0 +1,12 @@
+{
+  "_comment": "Public-report redaction config. denylist terms are replaced; path_alias shortens private paths. leakcheck fails if any denylisted term survives.",
+  "denylist": ["your-username", "your-hostname", "your-employer"],
+  "path_alias": {
+    "~/.hermes/skills": "hermes/skills",
+    "~/.claude": "claude",
+    "~/.codex": "codex",
+    "~/.agents": "agents",
+    "~/.omp/agent": "omp",
+    "~/projects": "repos"
+  }
+}
