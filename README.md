@@ -6,7 +6,7 @@ It audits your agent instructions (AGENTS.md, CLAUDE.md, SKILL.md, personas, rul
 
 - **Multi-lab:** guidance for Anthropic, OpenAI and Google is fetched at run time from their official docs (`references/labs.json`), never hardcoded. Add a lab by adding an entry.
 - **Multi-harness:** Hermes Agent, Claude Code, Codex, OMP (Oh My Pi) and repo-level AGENTS.md/CLAUDE.md. Each file is judged against the models that actually read it.
-- **Drift pass:** stale paths, retired locations, model IDs and effort settings that no longer match config, skill forks that diverged across profiles, and generated instruction blocks that got truncated.
+- **Drift pass:** stale paths, retired locations, model IDs and effort settings that no longer match config, skill forks that diverged across profiles, generated instruction blocks that got truncated, and Codex `AGENTS.md` files silently replaced by an `AGENTS.override.md`.
 - **Safe by default:** read-only until you approve. Public-safe report variant with a leak check, so you can share results without leaking paths or names.
 
 ## What it found on my own setup
@@ -31,6 +31,8 @@ ln -s "$PWD/prompt-audit" ~/.hermes/skills/software-development/prompt-audit
 ln -s "$PWD/prompt-audit" ~/.claude/skills/prompt-audit
 # Codex
 ln -s "$PWD/prompt-audit" ~/.agents/skills/prompt-audit
+# OMP (Oh My Pi)
+ln -s "$PWD/prompt-audit" ~/.omp/agent/skills/prompt-audit
 ```
 
 Then ask your agent: "run a prompt audit on my setup".

@@ -138,3 +138,76 @@ def test_report_public_redaction_edits_and_leakcheck(tmp_path, monkeypatch):
     outs = [str(tmp_path / "out" / "report.public.md"), str(tmp_path / "out" / "proposed.public.diff")]
     assert pa.leakcheck(outs, ["Alice"]) == []
     assert pa.leakcheck([str(tmp_path / "out" / "report.private.md")], ["Alice"])
+
+
+# ---- 2026-10-17 review: regressions found by the synthetic dry run ----
+
+
+def test_model_key_is_tier_aware():
+    cur = pa.current_versions(["gpt-6-astra", "gpt-6.1-sol", "gpt-6-luna", "gemini-3.8-flash"])
+    # a point release of one OpenAI tier must not make the other tiers look stale
+    assert pa.model_key("gpt-6-astra") == ("gpt-astra", (6, 0))
+    assert not pa.is_stale("gpt-6-astra", cur)
+    assert not pa.is_stale("gpt-6-luna", cur)
+    assert pa.is_stale("gpt-5.6-sol", cur)
+    # a bare family name compares on the major generation only
+    assert not pa.is_stale("gpt-6", cur) and not pa.is_stale("GPT-6", cur)
+    assert pa.is_stale("gpt-5.5", cur)
+    assert pa.is_stale("gemini-3.5-flash", cur)
+
+
+def test_fetch_follows_308(monkeypatch):
+    import urllib.request
+    assert any(isinstance(h, pa.Redirect308) for h in pa.build_opener().handlers)
+    req = urllib.request.Request("https://a.example/x")
+    new = pa.Redirect308().redirect_request(req, None, 308, "moved", {}, "https://b.example/y")
+    assert new is not None and new.full_url == "https://b.example/y"
+
+
+def test_codex_override_shadows_agents_md(tmp_path):
+    base = w(tmp_path / "codex" / "AGENTS.md", "base rules\n")
+    w(tmp_path / "codex" / "AGENTS.override.md", "override\n")
+    lone = w(tmp_path / "repo" / "AGENTS.md", "repo rules\n")
+    codex = [{"model": "gpt-6-astra", "via": "codex", "lab": "openai"}]
+    inv = {"files": [{"path": str(base), "readers": codex, "harness": "codex", "copies": [str(base)]},
+                     {"path": str(lone), "readers": codex, "harness": "codex", "copies": [str(lone)]}]}
+    hits = pa.shadow_drift(inv)
+    assert [h["path"] for h in hits] == [str(base)] and hits[0]["confidence"] == "high"
+    (tmp_path / "codex" / "AGENTS.override.md").write_text("  \n")  # empty override is skipped by Codex
+    assert pa.shadow_drift(inv) == []
+
+
+def test_rules_track_current_lab_guidance(tmp_path):
+    rules = {r["id"]: r for r in pa.jload(pa.RULES_FILE)["rules"]}
+    f = w(tmp_path / "AGENTS.md", 'Include a "reasoning" field in every JSON reply.\nCall it with temperature: 0.2\n')
+    rec = {"path": str(f), "kind": "instructions", "owner": "authored", "surface": "t", "surface_label": "t",
+           "harness": "codex", "always_loaded": True, "copies": [str(f)], "chars": 80}
+    rec["readers"] = [{"model": "claude-opus-5-5", "lab": "anthropic"}]
+    assert any(h["rule"] == "1b-show-reasoning" for h in pa.scan_file(rec, [rules["1b-show-reasoning"]]))
+    rec["readers"] = [{"model": "gpt-6-astra", "lab": "openai"}]
+    assert any(h["rule"] == "4-sampling-params" for h in pa.scan_file(rec, [rules["4-sampling-params"]]))
+
+
+def test_inventory_skips_dataless_placeholders(tmp_path, monkeypatch):
+    # a cloud-evicted (dataless) file blocks open() until it downloads; the collector must not hang on it
+    good = w(tmp_path / "a" / "AGENTS.md", "rules\n")
+    evicted = w(tmp_path / "b" / "AGENTS.md", "never read\n")
+    real_stat = os.stat
+
+    class St:
+        def __init__(self, st, flags):
+            self._st, self.st_flags = st, flags
+
+        def __getattr__(self, k):
+            return getattr(self._st, k)
+
+    def fake_stat(p, *a, **k):
+        st = real_stat(p, *a, **k)
+        return St(st, pa.SF_DATALESS) if str(p) == str(evicted) else st
+    monkeypatch.setattr(pa.os, "stat", fake_stat)
+    assert pa.is_dataless(str(evicted)) and not pa.is_dataless(str(good))
+    surfaces = w(tmp_path / "s.json", json.dumps({"surfaces": [
+        {"id": "r", "label": "r", "harness": "multi", "kind": "instructions", "globs": [str(tmp_path / "*" / "AGENTS.md")]}]}))
+    inv = pa.inventory(str(surfaces))
+    assert [f["path"] for f in inv["files"]] == [str(good)]
+    assert inv["skipped"] == [{"path": str(evicted), "reason": "dataless (cloud placeholder, not downloaded)"}]

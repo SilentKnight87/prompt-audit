@@ -68,12 +68,30 @@ def today() -> str:
 ASSET_RE = re.compile(r"\.(png|webp|jpe?g|svg|gif)$|texture|-models$|-preview-\d\d-\d{4}$")
 
 
+class Redirect308(urllib.request.HTTPRedirectHandler):
+    """Python < 3.11 does not follow 308 Permanent Redirect; docs hosts use it when pages move."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return super().redirect_request(req, fp, 307 if code == 308 else code, msg, headers, newurl)
+
+    http_error_308 = urllib.request.HTTPRedirectHandler.http_error_302
+
+
+def build_opener():
+    return urllib.request.build_opener(Redirect308())
+
+
 def fetch_guidance(cache_dir: str, labs_file=LABS_FILE, opener=None) -> dict:
     """Fetch every registered source. Returns manifest with status per source."""
     labs = jload(labs_file)
     stale_days = labs.get("stale_after_days", 45)
-    opener = opener or (lambda url: urllib.request.urlopen(
-        urllib.request.Request(url, headers={"User-Agent": "prompt-audit/0.1"}), timeout=30).read())
+    if opener is None:
+        http = build_opener()
+
+        def default_opener(url):
+            with http.open(urllib.request.Request(url, headers={"User-Agent": "prompt-audit/0.2"}), timeout=30) as r:
+                return r.geturl(), r.read()
+        opener = default_opener
     out = {"fetched_on": today(), "sources": []}
     cache = Path(cache_dir)
     cache.mkdir(parents=True, exist_ok=True)
@@ -85,6 +103,10 @@ def fetch_guidance(cache_dir: str, labs_file=LABS_FILE, opener=None) -> dict:
             rec["verified_stale"] = age > stale_days
             try:
                 body = opener(src["url"])
+                if isinstance(body, tuple):  # (final_url, bytes) from the default opener
+                    final, body = body
+                    if final and final != src["url"]:
+                        rec["redirected_to"] = final  # update labs.json so the registry stays current
                 text = body.decode("utf-8", "replace") if isinstance(body, bytes) else body
                 path = cache / f"{src['id']}.txt"
                 path.write_text(text, encoding="utf-8")
@@ -272,6 +294,16 @@ def load_vendor_names(patterns: list) -> set:
     return names
 
 
+SF_DATALESS = 0x40000000  # macOS: file content evicted to the cloud; open() blocks until it downloads
+
+
+def is_dataless(path: str) -> bool:
+    try:
+        return bool(getattr(os.stat(path), "st_flags", 0) & SF_DATALESS)
+    except OSError:
+        return False
+
+
 def is_third_party_pack(path: str, stop: str) -> str | None:
     """A skill inside a directory that ships its own LICENSE and package manifest is vendored."""
     d = os.path.dirname(path)
@@ -300,7 +332,7 @@ def inventory(surfaces_file: str, labs_file=LABS_FILE) -> dict:
     env = {"labs": jload(labs_file)}
     vendor = load_vendor_names(cfg.get("vendor_manifests", []))
     exclude = cfg.get("exclude_globs", [])
-    files, by_hash = [], {}
+    files, by_hash, skipped = [], {}, []
     for s in cfg["surfaces"]:
         readers = resolve_readers(s.get("readers", []), env)
         matched = []
@@ -310,6 +342,9 @@ def inventory(surfaces_file: str, labs_file=LABS_FILE) -> dict:
             if any(fnmatch.fnmatch(p, expand(x)) for x in exclude):
                 continue
             if not os.path.isfile(p):
+                continue
+            if is_dataless(p):
+                skipped.append({"path": p, "reason": "dataless (cloud placeholder, not downloaded)"})
                 continue
             try:
                 text = open(p, encoding="utf-8", errors="replace").read()
@@ -338,7 +373,7 @@ def inventory(surfaces_file: str, labs_file=LABS_FILE) -> dict:
             rec["copies"] = [p]
             by_hash[h] = rec
             files.append(rec)
-    return {"generated_on": today(), "files": files,
+    return {"generated_on": today(), "files": files, "skipped": skipped,
             "configs": collect_configs(cfg.get("configs", {}))}
 
 
@@ -489,7 +524,11 @@ MODEL_MENTION_RE = re.compile(
 
 
 def model_key(mention: str):
-    """-> (family, version tuple) for comparison, e.g. ('opus', (5,5))."""
+    """-> (family, version tuple) for comparison, e.g. ('opus', (5,5)), ('gpt-sol', (6,1)).
+
+    Tiers are separate families: labs version tiers independently (gpt-6.1-sol ships while
+    gpt-6-astra stays current), so comparing across tiers would flag current models as stale.
+    A bare 'gpt-6' / 'GPT-6' is family 'gpt' and compares on the major generation only."""
     s = mention.lower().replace(" ", "-")
     s = s.replace("claude-", "")
     m = re.match(r"(opus|sonnet|haiku|fable|mythos)-(\d+)(?:[.-](\d+))?", s)
@@ -497,7 +536,7 @@ def model_key(mention: str):
         return m.group(1), (int(m.group(2)), int(m.group(3) or 0))
     m = re.match(r"gpt-(\d+)(?:\.(\d+))?(?:-([a-z]+))?", s)
     if m:
-        return "gpt", (int(m.group(1)), int(m.group(2) or 0))
+        return (f"gpt-{m.group(3)}" if m.group(3) else "gpt"), (int(m.group(1)), int(m.group(2) or 0))
     m = re.match(r"gemini-(\d+)(?:\.(\d+))?-([a-z]+)", s)
     if m:
         return f"gemini-{m.group(3)}", (int(m.group(1)), int(m.group(2) or 0))
@@ -511,6 +550,23 @@ def current_versions(models: list) -> dict:
         if fam and (fam not in cur or ver > cur[fam]):
             cur[fam] = ver
     return cur
+
+
+def is_stale(mention: str, cur: dict) -> str | None:
+    """Newer version label if `mention` is older than the current generation, else None.
+    Same tier: full version compare. Bare name or a tier with no catalogued version: compare
+    the major generation against the newest of any tier in that lab family."""
+    fam, ver = model_key(mention or "")
+    if not fam:
+        return None
+    if fam in cur and fam != "gpt":
+        return ".".join(map(str, cur[fam])) if ver < cur[fam] else None
+    group = fam.split("-")[0]
+    majors = [v for f, v in cur.items() if f.split("-")[0] == group]
+    if not majors:
+        return None
+    top = max(majors)
+    return f"{top[0]}.x" if ver[0] < top[0] else None
 
 
 PATH_RE = re.compile(r"(?<![\w/.])((?:~|\$HOME|/Users|/home|/opt|/etc)/[\w@%+=:,./-]+)")
@@ -564,15 +620,16 @@ def drift_file(rec: dict, env: dict) -> list:
             continue
         # model mentions older than the current generation of the same family
         for m in MODEL_MENTION_RE.finditer(ln):
-            fam, ver = model_key(m.group(0))
-            if not fam or fam not in cur or ver >= cur[fam]:
+            fam, _ = model_key(m.group(0))
+            newer = is_stale(m.group(0), cur)
+            if not newer:
                 continue
             if re.search(r"\b(retired|deprecated|legacy|older|previous|from|vs\.?|than|migrat|history|was)\b", ln, re.I):
                 continue  # the line is already about the old model
             conf = "medium" if rec["always_loaded"] and authored else "low"
             out.append(drift(rec, i, "model-id", ln, m.group(0), conf,
                              f"names {m.group(0)}; the newest configured or catalogued {fam} is "
-                             f"{'.'.join(map(str, cur[fam]))}. Pinned names silently go stale when the alias or default moves.",
+                             f"{newer}. Pinned names silently go stale when the alias or default moves.",
                              "rewrite" if authored else "flag"))
         # absolute / home paths that do not resolve
         for m in PATH_RE.finditer(ln):
@@ -687,10 +744,11 @@ def config_drift(inv: dict, env: dict) -> list:
         for v in chain:
             models.append(("omp", f"fallbackChains.{src}", strip_model(v), env["paths"].get("omp", "omp")))
     for cid, key, m, path in models:
-        fam, ver = model_key(m or "")
-        if fam and fam in cur and ver < cur[fam]:
+        fam, _ = model_key(m or "")
+        newer = is_stale(m or "", cur)
+        if newer:
             cfind(cid, path, key, f"{key}: {m}", "medium",
-                  f"{m} is older than the newest configured {fam} ({'.'.join(map(str, cur[fam]))}).",
+                  f"{m} is older than the newest configured or catalogued {fam} ({newer}).",
                   "flag", "model")
     # auxiliary role disagreement across Hermes profiles
     roles = {}
@@ -730,6 +788,37 @@ def fork_drift(inv: dict) -> list:
                     "cross_lab_note": None, "evidence": f"{len(recs)} variants / {len(paths)} files",
                     "match": name, "readers": sorted({r["model"] for x in recs for r in x["readers"]}),
                     "fork_paths": paths})
+    return out
+
+
+def shadow_drift(inv: dict) -> list:
+    """Codex reads AGENTS.override.md instead of AGENTS.md in the same directory (only one file per
+    directory, first non-empty wins). An audited AGENTS.md beside a non-empty override never reaches
+    Codex, so its rules are dead for that reader and any fix made there does nothing."""
+    out = []
+    for f in inv["files"]:
+        if os.path.basename(f["path"]) != "AGENTS.md":
+            continue
+        if not any(r.get("via") == "codex" for r in f.get("readers", [])):
+            continue
+        ov = os.path.join(os.path.dirname(f["path"]), "AGENTS.override.md")
+        try:
+            live = os.path.isfile(ov) and open(ov, encoding="utf-8", errors="replace").read().strip()
+        except Exception:
+            live = False
+        if not live:
+            continue
+        out.append({"id": None, "path": f["path"], "line": 0, "surface": f.get("surface", "codex"),
+                    "surface_label": f.get("surface_label", "Codex AGENTS.md"), "harness": "codex",
+                    "owner": f.get("owner", "authored"), "always_loaded": True, "copies": len(f.get("copies", [])),
+                    "rule": "drift-shadow", "group": "D", "category": "drift:shadow",
+                    "pattern": "Drift - AGENTS.md shadowed by AGENTS.override.md",
+                    "why": "Codex uses AGENTS.override.md in place of AGENTS.md in the same directory, so this "
+                           "file is not loaded for Codex. Either the override is a forgotten temporary file or "
+                           "these rules are dead for Codex readers.",
+                    "sources": ["openai-codex-agents-md"], "confidence": "high", "action": "flag",
+                    "cross_lab_note": None, "evidence": "AGENTS.override.md present and non-empty",
+                    "match": "AGENTS.override.md", "readers": sorted({r["model"] for r in f["readers"]})})
     return out
 
 
@@ -804,6 +893,7 @@ def scan(inventory_file: str, out_file: str, rules_file=RULES_FILE, labs_file=LA
         cands += drift_file(rec, env)
     cands += config_drift(inv, env)
     cands += fork_drift(inv)
+    cands += shadow_drift(inv)
     rank = {"high": 0, "medium": 1, "low": 2}
     cands.sort(key=lambda c: (rank[c["confidence"]], not c["always_loaded"], c["owner"] != "authored", c["path"], c["line"]))
     for n, c in enumerate(cands, 1):
@@ -998,6 +1088,8 @@ def main(argv=None):
         jdump(inv, a.out)
         n_dup = sum(len(x["copies"]) - 1 for x in inv["files"])
         print(f"{len(inv['files'])} unique files ({n_dup} duplicate copies folded)")
+        for s_ in inv["skipped"]:
+            print(f"skipped {s_['path']}: {s_['reason']} (download it, or list it in the report assumptions)")
     elif a.cmd == "scan":
         res = scan(a.inventory, a.out, guidance_manifest=a.guidance, vault_root=a.vault, surfaces_file=a.surfaces,
                    blame=not a.no_blame)
