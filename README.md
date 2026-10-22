@@ -62,6 +62,21 @@ python3 scripts/prompt_audit.py leakcheck $RUN/report/report.public.md --public-
 
 `runs/` is git-ignored because it contains your private paths.
 
+## Cache reuse
+
+The cache pass flags volatile timestamps, time templates, live counters and generated IDs in always-loaded
+instructions. Candidates include line-position estimates: changes near the top affect more of the prefix.
+Review them before editing; keep needed refreshes and put stable content first where your adapter allows it.
+
+```bash
+python3 scripts/runtime_probe.py --cache   # last 30 session files per harness; override with --last N
+```
+
+This reads local Claude Code and Codex usage metadata and reports per-model token-weighted cached-input
+shares (not hit rates), overall and by same-session request gap (`<5m`, `5-60m`, `1-24h`, `>24h`). Empty
+shares are `null`; first requests or missing timestamps are unbucketed. It provides evidence, not retention
+guarantees or API TTL advice for subscription clients. The default probe output is unchanged.
+
 ## Tests
 
 ```bash

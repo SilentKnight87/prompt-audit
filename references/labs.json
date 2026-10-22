@@ -10,7 +10,8 @@
         {"id": "anthropic-best-practices", "kind": "prompting", "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices.md", "verified_on": "2026-10-17"},
         {"id": "anthropic-opus-5-5", "kind": "prompting", "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5-5.md", "verified_on": "2026-10-17", "applies_to": ["claude-opus-5-5"]},
         {"id": "anthropic-whats-new-opus-5-5", "kind": "migration", "url": "https://platform.claude.com/docs/en/models/opus-5-5/whats-new-opus-5-5.md", "verified_on": "2026-10-17", "applies_to": ["claude-opus-5-5"]},
-        {"id": "anthropic-models", "kind": "models", "url": "https://platform.claude.com/docs/en/models/overview.md", "verified_on": "2026-10-17", "model_id_regex": "claude-(?:opus|sonnet|haiku|fable|mythos)-[0-9][0-9a-z.-]*"}
+        {"id": "anthropic-models", "kind": "models", "url": "https://platform.claude.com/docs/en/models/overview.md", "verified_on": "2026-10-17", "model_id_regex": "claude-(?:opus|sonnet|haiku|fable|mythos)-[0-9][0-9a-z.-]*"},
+        {"id": "anthropic-prompt-caching", "kind": "prompting", "url": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching", "verified_on": "2026-10-22"}
       ]
     },
     "openai": {
@@ -20,7 +21,8 @@
         {"id": "openai-gpt6-guide", "kind": "migration", "url": "https://developers.openai.com/api/docs/guides/latest-model.md", "verified_on": "2026-10-17", "applies_to": ["gpt-6-astra", "gpt-6.1-sol", "gpt-6-luna"], "note": "GPT-6 family guide: Astra asks more and is more sensitive to AGENTS.md/skill text; audit skills for instructions that pause work; temperature/top_p rejected unless effort is none; Astra and 6.1 Sol reject effort none/minimal."},
         {"id": "openai-codex-agents-md", "kind": "harness", "url": "https://learn.chatgpt.com/docs/agent-configuration/agents-md", "verified_on": "2026-10-17", "note": "Discovery order: AGENTS.override.md replaces AGENTS.md per directory (first non-empty wins); 32 KiB project_doc_max_bytes cap. Moved from developers.openai.com/codex/guides/agents-md (308) by 2026-10-17."},
         {"id": "openai-codex-skills", "kind": "harness", "url": "https://learn.chatgpt.com/docs/build-skills", "verified_on": "2026-10-17", "note": "Skill locations (.agents/skills up to repo root, ~/.agents/skills), initial list capped at 2% of context or 8,000 chars; descriptions shortened first. Moved from developers.openai.com/codex/skills (308) by 2026-10-17."},
-        {"id": "openai-models", "kind": "models", "url": "https://developers.openai.com/api/docs/models", "verified_on": "2026-10-17", "model_id_regex": "gpt-[0-9][0-9a-z.-]*"}
+        {"id": "openai-models", "kind": "models", "url": "https://developers.openai.com/api/docs/models", "verified_on": "2026-10-17", "model_id_regex": "gpt-[0-9][0-9a-z.-]*"},
+        {"id": "openai-prompt-caching", "kind": "prompting", "url": "https://developers.openai.com/api/docs/guides/prompt-caching", "verified_on": "2026-10-22"}
       ]
     },
     "google": {

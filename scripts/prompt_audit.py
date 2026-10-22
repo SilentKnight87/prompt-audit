@@ -393,6 +393,28 @@ def collect_configs(spec: dict) -> dict:
 # ---------------------------------------------------------------------- scan
 
 FENCE_RE = re.compile(r"^\s*(```|~~~)")
+CACHE_CONTEXT_RE = re.compile(r"\b(changelog|history|historical|examples?|samples?|demo)\b", re.I)
+
+
+def cache_lines(text: str):
+    """Exclude examples and history, including their nested Markdown sections."""
+    excluded_level = None
+    for i, ln, zone in body_lines(text):
+        if zone == "fence":
+            continue
+        heading = re.match(r"^(#{1,6})\s+(.*)", ln)
+        if heading:
+            level = len(heading[1])
+            if excluded_level is not None and level <= excluded_level:
+                excluded_level = None
+            if excluded_level is None and CACHE_CONTEXT_RE.search(heading[2]):
+                excluded_level = level
+            continue
+        if excluded_level is not None or re.match(r"^(?: {4}|\t|\s*>)", ln):
+            continue
+        if CACHE_CONTEXT_RE.search(ln):
+            continue
+        yield i, ln
 
 
 def body_lines(text: str):
@@ -458,6 +480,8 @@ def scan_file(rec: dict, rules: list) -> list:
     reader_labs = {r["lab"] for r in rec["readers"]} or {"unknown"}
     out = []
     for rule in rules:
+        if rule.get("kind") == "cache_volatility" and not rec.get("always_loaded"):
+            continue
         if rule.get("scope") and rec["kind"] not in rule["scope"]:
             continue
         ok, note = rule_applies(rule, reader_labs)
@@ -488,6 +512,18 @@ def scan_file(rec: dict, rules: list) -> list:
                 out.append(finding(rec, rule, 1, f"{n} caps markers ({per_k:.1f}/1k chars)", conf, conf_action, note))
             continue
         rx = re.compile(rule["regex"], 0 if rule.get("case_sensitive") else re.I)
+        if rule.get("kind") == "cache_volatility":
+            total_lines = max(1, len(text.splitlines()))
+            for i, ln in cache_lines(text):
+                m = rx.search(ln)
+                if not m:
+                    continue
+                position = (i - 1) / total_lines
+                candidate = finding(rec, rule, i, ln.strip()[:240], conf, "flag", note, match=m.group(0))
+                candidate.update(line_fraction=round(position, 4),
+                                 prefix_impact=round(1 - position, 4), total_lines=total_lines)
+                out.append(candidate)
+            continue
         zones = set(rule.get("zones", ["body"]))
         unless = re.compile(rule["unless"], re.I) if rule.get("unless") else None
         hits = 0

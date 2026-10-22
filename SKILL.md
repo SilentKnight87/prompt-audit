@@ -1,7 +1,7 @@
 ---
 name: prompt-audit
 description: Use when asked to audit, de-cruft or re-baseline agent instructions (AGENTS.md, CLAUDE.md, SKILL.md, rules, personas, system prompts) after a model change, or to check that instruction files still match the models, paths and effort settings actually running. Reads each lab's current docs and prompting guides, proposes fixes, applies them only after approval. Multi-lab, multi-harness.
-version: 0.2.0
+version: 0.3.0
 author: SilentKnight87
 license: Apache-2.0
 metadata:
@@ -51,6 +51,8 @@ Identical copies are folded (one finding covers every copy; `copies` counts them
 `python3 scripts/prompt_audit.py scan --inventory ... --out <run>/candidates.json --guidance <run>/guidance/manifest.json --surfaces ... [--vault <vault root>]`
 
 `python3 scripts/runtime_probe.py` adds what recent sessions actually ran (model and effort fields only).
+`python3 scripts/runtime_probe.py --cache` reads usage metadata for the last 30 session files per harness
+(`--last N` changes that limit). It reports per-model cached-input shares and same-session request-gap buckets.
 
 Candidates come from `references/rules.json` (each row cites its upstream group or lab source) and the drift pass. They are signals, not findings. Expect most to be rejected.
 
@@ -65,6 +67,20 @@ For each candidate, apply the upstream deletion rule: could the model already kn
 - Example code for a different API (local llama.cpp sampling params, a red-team log of old model results) is not an instruction to the reader model.
 
 Drift checks: confirm each with a direct read (does the path exist, what does the config say, what did sessions run). A claim the system contradicts is `high`. A path owned by an uninstalled tool is not drift.
+
+Cache-reuse candidates are `flag` only. Confirm that the adapter actually refreshes the timestamp, expands
+the placeholder, or updates the counter or ID. Historical dates, fixed edit dates and literal templates may
+be stable. Review higher `prefix_impact` values first; `line_fraction` is a line-position estimate, not a token
+measurement. Put stable content first and volatile content last where the adapter allows it. Recommendations
+are adapter-specific: never suggest API TTL fields (`prompt_cache_retention`, `prompt_cache_options`) to
+subscription clients, which may reject them. Never remove a needed memory/date refresh or compaction to
+raise a cache statistic. Observed shares are evidence, not retention guarantees.
+
+The cache probe reports token-weighted share, not hit rate. Claude input includes uncached, cache-read and
+cache-creation tokens; Codex input already includes cached tokens. Repeated message IDs or cumulative totals
+are deduplicated. Each gap belongs to the later request, across model changes within one session file.
+First requests and requests with missing or backward timestamps are unbucketed; empty shares are `null`.
+Only Claude Code and Codex are supported; missing or malformed usage records are skipped.
 
 Provenance: `git blame` where the file is tracked (the collector adds `provenance`). Ask which failure on which model the line prevented and whether that model is still in use.
 
