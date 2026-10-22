@@ -78,7 +78,8 @@ def input_usage(usage, kind):
 
 def cache_requests(path, kind):
     """Select usage metadata only. Never inspect message content or tool payloads."""
-    requests, seen_totals = {}, set()
+    requests, records, seen_totals = {}, {}, set()
+    has_records = False
     model = "unknown"
     try:
         with open(path, encoding="utf-8", errors="replace") as fh:
@@ -96,15 +97,28 @@ def cache_requests(path, kind):
                     message = row.get("message")
                     if not isinstance(message, dict):
                         continue
-                    usage = input_usage(message.get("usage"), kind)
                     key = message.get("id") or row.get("requestId")
-                    if not usage or not isinstance(key, str):
+                    raw_usage = message.get("usage")
+                    if not isinstance(raw_usage, dict) or not isinstance(key, str):
                         continue
                     previous = requests.get(key)
                     # Streamed chunks repeat one message; keep its latest counters and first timestamp.
-                    if previous and previous["timestamp"] is not None:
-                        when = previous["timestamp"]
+                    if previous and previous[0]["timestamp"] is not None:
+                        when = previous[0]["timestamp"]
                     name = message.get("model")
+                    iterations = raw_usage.get("iterations")
+                    usages = iterations if isinstance(iterations, list) and len(iterations) > 1 else [raw_usage]
+                    entries = []
+                    for item in usages:
+                        usage = input_usage(item, kind)
+                        if usage:
+                            item_model = item.get("model") or name
+                            entries.append({"model": item_model if isinstance(item_model, str) else "unknown",
+                                            "timestamp": when, "input_tokens": usage[0],
+                                            "cached_input_tokens": usage[1]})
+                    if entries:
+                        requests[key] = entries
+                    continue
                 else:
                     payload = row.get("payload")
                     if not isinstance(payload, dict):
@@ -112,6 +126,17 @@ def cache_requests(path, kind):
                     if row.get("type") == "turn_context":
                         name = payload.get("model")
                         model = name if isinstance(name, str) else "unknown"
+                        continue
+                    if row.get("type") == "token_usage_record":
+                        has_records = True
+                        key = payload.get("response_id")
+                        usage = input_usage(payload.get("usage"), kind)
+                        if isinstance(key, str) and usage:
+                            previous = records.get(key)
+                            if previous and previous["timestamp"] is not None:
+                                when = previous["timestamp"]
+                            records[key] = {"model": model, "timestamp": when,
+                                            "input_tokens": usage[0], "cached_input_tokens": usage[1]}
                         continue
                     if row.get("type") != "event_msg" or payload.get("type") != "token_count":
                         continue
@@ -134,7 +159,9 @@ def cache_requests(path, kind):
                                  "timestamp": when, "input_tokens": usage[0], "cached_input_tokens": usage[1]}
     except OSError:
         pass
-    return list(requests.values())
+    if kind == "claude":
+        return [entry for entries in requests.values() for entry in entries]
+    return list(records.values()) if has_records else list(requests.values())
 
 
 def gap_bucket(seconds):

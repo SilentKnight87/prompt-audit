@@ -394,6 +394,7 @@ def collect_configs(spec: dict) -> dict:
 
 FENCE_RE = re.compile(r"^\s*(```|~~~)")
 CACHE_CONTEXT_RE = re.compile(r"\b(changelog|history|historical|examples?|samples?|demo)\b", re.I)
+CACHE_SECTION_RE = re.compile(r"^(?:changelog|history|examples?|samples?|demos?)\b", re.I)
 
 
 def cache_lines(text: str):
@@ -407,10 +408,12 @@ def cache_lines(text: str):
             level = len(heading[1])
             if excluded_level is not None and level <= excluded_level:
                 excluded_level = None
-            if excluded_level is None and CACHE_CONTEXT_RE.search(heading[2]):
+            if level > 1 and excluded_level is None and CACHE_SECTION_RE.match(heading[2]):
                 excluded_level = level
             continue
-        if excluded_level is not None or re.match(r"^(?: {4}|\t|\s*>)", ln):
+        if excluded_level is not None or re.match(r"^\s*>", ln):
+            continue
+        if re.match(r"^(?: {4}|\t)", ln) and not re.match(r"^\s*(?:[-+*]|\d+[.)])\s+", ln):
             continue
         if CACHE_CONTEXT_RE.search(ln):
             continue

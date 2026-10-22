@@ -30,6 +30,10 @@ def cache_hits(tmp_path, text, always_loaded=True):
     ("Last updated: 03:04", "cache-timestamp", "medium"),
     ("As of 2026-01-02 03:04:05+00:00", "cache-timestamp", "medium"),
     ("Updated: 2026-01-02", "cache-date", "low"),
+    ("_Last updated 2026-10-01_", "cache-date", "low"),
+    ("*Last updated: 2026-10-01*", "cache-date", "low"),
+    ("Last updated: 2026-10-17 14:03 UTC", "cache-timestamp", "medium"),
+    ("<!-- generated: 2026-10-17T00:44:29Z -->", "cache-timestamp", "medium"),
     ("Current date: {{date}}", "cache-template", "medium"),
     ("Today is {{now}}.", "cache-template", "medium"),
     ("Current date: ${DATE}", "cache-template", "medium"),
@@ -62,6 +66,9 @@ def test_cache_candidates(tmp_path, line, rule, confidence):
     "> Generated: 03:04\n",
     "Example: Current date: {{date}}\n",
     "Run at most 5 tasks.\nThere are 12 fixed steps.\n",
+    "Request: 5 retries max\n",
+    "Turn: 3 max\n",
+    "Session: 2 max\n",
     "Reference ID: 00000000-0000-4000-8000-000000000001\n",
 ])
 def test_cache_non_candidates(tmp_path, text):
@@ -201,3 +208,66 @@ def test_probe_cli_default_unchanged_and_cache_opt_in(tmp_path, capsys):
     output = json.loads(capsys.readouterr().out)
     assert output["metric"] == "token-weighted share, not hit rate"
     assert output["harnesses"]["claude_code"]["claude-test"]["requests"] == 1
+
+
+@pytest.mark.parametrize("prefix", [
+    "# acme-demo agent rules\n",
+    "# History\n",
+    "## Shell history and memory\n",
+    "    - ",
+    "    1. ",
+])
+def test_cache_exclusions_preserve_live_metadata(tmp_path, prefix):
+    hits = cache_hits(tmp_path, prefix + "Generated: 2026-10-17T00:44:29Z\n")
+    assert [h["rule"] for h in hits] == ["cache-timestamp"]
+
+
+@pytest.mark.parametrize("topic", ["Changelog", "History", "Examples", "Example", "Samples", "Demos"])
+def test_cache_excludes_sections_starting_with_topic(tmp_path, topic):
+    assert cache_hits(tmp_path, "## " + topic + " of prior runs\nGenerated: 03:04\n") == []
+
+
+def codex_record(ident, when, plain=100, cached=60):
+    return {"type": "token_usage_record", "timestamp": when, "payload": {
+        "response_id": ident, "turn_id": "turn-test",
+        "usage": {"input_tokens": plain, "cached_input_tokens": cached}}}
+
+
+def test_codex_response_records_include_compaction_and_replace_totals(tmp_path):
+    path = tmp_path / "session.jsonl"
+    first = codex_record("a", "2026-01-01T00:00:00Z")
+    compact = codex_record("compact", "2026-01-01T00:01:00Z", plain=1000, cached=0)
+    jsonl(path, [context("gpt-test-a"), first, codex("2026-01-01T00:00:00Z", 100),
+                 compact, codex("2026-01-01T00:01:00Z", 100, plain=0, cached=0),
+                 context("gpt-test-b"), codex_record("b", "2026-01-01T00:02:00Z"),
+                 codex("2026-01-01T00:02:00Z", 200),
+                 codex_record("b", "2026-01-01T00:02:01Z")])
+    requests = rp.cache_requests(path, "codex")
+    assert len(requests) == 3
+    assert [r["model"] for r in requests] == ["gpt-test-a", "gpt-test-a", "gpt-test-b"]
+    assert sum(r["input_tokens"] for r in requests) == 1200
+    assert requests[1]["cached_input_tokens"] == 0
+    assert requests[2]["timestamp"] == rp.timestamp("2026-01-01T00:02:00Z")
+
+
+def test_claude_fallback_iterations_replace_parent_usage_and_dedupe(tmp_path):
+    path = tmp_path / "claude" / "project" / "session.jsonl"
+    row = claude("a", "2026-01-01T00:00:00Z", model="claude-fallback")
+    row["message"]["usage"]["iterations"] = [
+        {"type": "message", "model": "claude-original", "input_tokens": 10,
+         "cache_read_input_tokens": 20, "cache_creation_input_tokens": 30},
+        {"type": "fallback_message", "input_tokens": 40, "cache_read_input_tokens": 50,
+         "cache_creation_input_tokens": 60},
+    ]
+    duplicate = json.loads(json.dumps(row))
+    duplicate["timestamp"] = "2026-01-01T00:00:01Z"
+    jsonl(path, [row, duplicate])
+    requests = rp.cache_requests(path, "claude")
+    assert [r["input_tokens"] for r in requests] == [60, 150]
+    assert [r["cached_input_tokens"] for r in requests] == [20, 50]
+    assert [r["model"] for r in requests] == ["claude-original", "claude-fallback"]
+    assert all(r["timestamp"] == rp.timestamp(row["timestamp"]) for r in requests)
+    models = rp.cache_probe(str(tmp_path / "claude"), str(tmp_path / "codex"), 30)["harnesses"]["claude_code"]
+    assert models["claude-original"]["requests"] == models["claude-fallback"]["requests"] == 1
+    assert models["claude-original"]["cached_input_share"] == 20 / 60
+    assert models["claude-fallback"]["cached_input_share"] == 50 / 150
