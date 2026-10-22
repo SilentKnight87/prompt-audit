@@ -114,6 +114,26 @@
     {"id": "4-forced-tool-choice", "regex": "tool_choice['\"]?\\s*[:=]\\s*\\{?\\s*['\"]?type['\"]?\\s*:\\s*['\"](any|tool)", "zones": ["body", "fence"], "group": "4", "category": "api-fossil",
      "pattern": "4 API fossil - forced tool_choice", "labs": ["anthropic"], "confidence": "high", "action": "replace-with-API-feature",
      "why": "Forced tool use returns 400 on Opus 5.5 / Sonnet 5.5 / Fable 5.1; use auto plus strict tools or structured outputs.",
-     "sources": ["anthropic-whats-new-opus-5-5"]}
+     "sources": ["anthropic-whats-new-opus-5-5"]},
+    {"id": "cache-timestamp", "kind": "cache_volatility", "regex": "(?:^\\s*(?:<!--\\s*)?(?:(?:[-+*]|\\d+[.)])\\s+)?(?:[_*]{1,2})?(?:last[ _-]?)?(?:generated(?:[ _-]at|[ _-]on)?|updated(?:[ _-]at|[ _-]on)?|as of|current[ _-](?:date|time)|timestamp)\\b\\s*(?:[_*]{1,2})?\\s*[:=]?\\s*(?:[_*]{1,2})?\\s*`?(?:\\d{4}-\\d{2}-\\d{2}[T ]\\d{2}:\\d{2}(?::\\d{2}(?:\\.\\d+)?)?(?:Z|[+-]\\d{2}:?\\d{2})?|\\d{1,2}:\\d{2}(?::\\d{2})?(?:\\s*[AP]M)?)|^\\s*(?:<!--\\s*)?(?:(?:[-+*]|\\d+[.)])\\s+)?(?:[_*]{1,2})?\\d{4}-\\d{2}-\\d{2}[T ]\\d{2}:\\d{2}(?::\\d{2}(?:\\.\\d+)?)?(?:Z|[+-]\\d{2}:?\\d{2})?)(?-i:\\s+[A-Z]{2,5})?(?!\\d)`?(?:[_*]{1,2})?\\s*\\.?(?:\\s*-->)?\\s*$", "group": "C", "category": "cache-reuse",
+     "pattern": "Session-time stamp", "labs": ["all"], "confidence": "medium", "action": "flag",
+     "why": "A refreshed time stamp can change the prefix each session. Confirm that the loader actually refreshes it.",
+     "sources": ["openai-prompt-caching", "anthropic-prompt-caching"]},
+    {"id": "cache-date", "kind": "cache_volatility", "regex": "^\\s*(?:<!--\\s*)?(?:(?:[-+*]|\\d+[.)])\\s+)?(?:[_*]{1,2})?(?:last[ _-]?)?(?:generated(?:[ _-]at|[ _-]on)?|updated(?:[ _-]at|[ _-]on)?|as of|current[ _-](?:date|time)|timestamp)\\b\\s*(?:[_*]{1,2})?\\s*[:=]?\\s*(?:[_*]{1,2})?\\s*`?\\d{4}-\\d{2}-\\d{2}(?!\\d)`?(?:[_*]{1,2})?\\s*\\.?(?:\\s*-->)?\\s*$", "group": "C", "category": "cache-reuse",
+     "pattern": "Daily date stamp", "labs": ["all"], "confidence": "low", "action": "flag",
+     "why": "Date-only metadata may change daily, or may be a fixed edit date. Confirm refresh behavior before changing it.",
+     "sources": ["openai-prompt-caching", "anthropic-prompt-caching"]},
+    {"id": "cache-template", "kind": "cache_volatility", "regex": "\\{\\{\\s*(?:date|now|time|timestamp|current_date|current_time)\\s*\\}\\}|\\$\\{(?:DATE|NOW|TIME|TIMESTAMP|CURRENT_DATE|CURRENT_TIME)\\}|\\$\\(date(?:\\s+[^)\\n]*)?\\)", "group": "C", "category": "cache-reuse",
+     "pattern": "Time template or command substitution", "labs": ["all"], "confidence": "medium", "action": "flag",
+     "why": "If expanded on load, a time placeholder changes the prompt prefix. A literal placeholder does not; confirm the adapter behavior.",
+     "sources": ["openai-prompt-caching", "anthropic-prompt-caching"]},
+    {"id": "cache-live-number", "kind": "cache_volatility", "regex": "^\\s*(?:[-*]\\s+)?(?:\\*\\*)?(?:(?:run|session|request|turn)(?:[ _-]?(?:count|counter|number)\\s*(?:\\*\\*)?\\s*[:=#]\\s*(?:\\*\\*)?\\s*\\d+\\b|\\s*(?:\\*\\*)?\\s*#\\s*(?:\\*\\*)?\\s*\\d+\\b|\\s*(?:\\*\\*)?\\s*[:=]\\s*(?:\\*\\*)?\\s*\\d+\\s*(?:\\*\\*)?\\s*$)|(?:remaining|left|(?:tokens?|turns?|requests?|runs?|tasks?)[ _-](?:remaining|left))\\s*(?:\\*\\*)?\\s*[:=]\\s*(?:\\*\\*)?\\s*\\d+\\b|(?:status|budget|context|progress)\\b[^\\n]*\\b\\d+(?:\\.\\d+)?\\s*%?\\s*(?:(?:tokens?|turns?|requests?|runs?|tasks?)\\s+)?(?:left|remaining)\\b|\\d+\\s+(?:(?:tokens?|turns?|requests?|runs?|tasks?)\\s+)?(?:left|remaining)\\b)", "group": "C", "category": "cache-reuse",
+     "pattern": "Live counter or remaining budget", "labs": ["all"], "confidence": "low", "action": "flag",
+     "why": "A live run counter or remaining budget changes between requests. A fixed limit is useful context and should stay.",
+     "sources": ["openai-prompt-caching", "anthropic-prompt-caching"]},
+    {"id": "cache-generated-id", "kind": "cache_volatility", "regex": "^\\s*(?:[-*]\\s+)?(?:\\*\\*)?(?:generated|session|run|request)(?:[ _-]id)?\\s*(?:\\*\\*)?\\s*[:=]\\s*(?:\\*\\*)?\\s*`?\\b[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}\\b", "group": "C", "category": "cache-reuse",
+     "pattern": "Generated session identifier", "labs": ["all"], "confidence": "medium", "action": "flag",
+     "why": "A fresh identifier can invalidate the prefix each session. Stable identifiers are not volatility; confirm how it is generated.",
+     "sources": ["openai-prompt-caching", "anthropic-prompt-caching"]}
   ]
 }
