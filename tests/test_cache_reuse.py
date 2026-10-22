@@ -33,6 +33,8 @@ def cache_hits(tmp_path, text, always_loaded=True):
     ("_Last updated 2026-10-01_", "cache-date", "low"),
     ("*Last updated: 2026-10-01*", "cache-date", "low"),
     ("Last updated: 2026-10-17 14:03 UTC", "cache-timestamp", "medium"),
+    ("Last updated: 2026-10-17 14:03 ET", "cache-timestamp", "medium"),
+    ("Last updated: 2026-10-17 14:03 EDT", "cache-timestamp", "medium"),
     ("<!-- generated: 2026-10-17T00:44:29Z -->", "cache-timestamp", "medium"),
     ("Current date: {{date}}", "cache-template", "medium"),
     ("Today is {{now}}.", "cache-template", "medium"),
@@ -59,6 +61,7 @@ def test_cache_candidates(tmp_path, line, rule, confidence):
     "Updated the migration on 2026-01-02 at 03:04.\n",
     "## Changelog\nUpdated: 2026-01-02T03:04:05Z\n### Details\nRun count: 42\n",
     "## History\nGenerated: 03:04\n",
+    "## Historical August Experiment\nLast updated: 2026-08-11\n",
     "## Examples\nCurrent date: {{date}}\n",
     "```text\nCurrent date: {{date}}\n```\n",
     "~~~text\nGenerated: 03:04\n~~~\n",
@@ -69,6 +72,10 @@ def test_cache_candidates(tmp_path, line, rule, confidence):
     "Request: 5 retries max\n",
     "Turn: 3 max\n",
     "Session: 2 max\n",
+    "- 2026-10-17 14:03 fixed\n",
+    "1. 2026-10-17 09:00 gym\n",
+    "* 2026-10-17 09:00 call\n",
+    "Last updated: 2026-10-17 14:03 by\n",
     "Reference ID: 00000000-0000-4000-8000-000000000001\n",
 ])
 def test_cache_non_candidates(tmp_path, text):
@@ -248,6 +255,34 @@ def test_codex_response_records_include_compaction_and_replace_totals(tmp_path):
     assert sum(r["input_tokens"] for r in requests) == 1200
     assert requests[1]["cached_input_tokens"] == 0
     assert requests[2]["timestamp"] == rp.timestamp("2026-01-01T00:02:00Z")
+
+
+def test_codex_mixed_rollout_preserves_legacy_requests_before_records(tmp_path):
+    path = tmp_path / "codex" / "2026" / "01" / "01" / "session.jsonl"
+    jsonl(path, [context("gpt-test-a"), codex("2026-01-01T00:00:00Z", 100),
+                 codex("2026-01-01T00:00:01Z", 100),
+                 codex("2026-01-01T00:02:00Z", 300, plain=200, cached=100),
+                 context("gpt-test-b"),
+                 codex_record("new", "2026-01-01T01:02:00Z", plain=300, cached=200),
+                 codex("2026-01-01T01:02:00Z", 600, plain=300, cached=200),
+                 codex("2026-01-01T01:02:01Z", 600, plain=300, cached=200),
+                 codex_record("new", "2026-01-01T01:02:02Z", plain=300, cached=200),
+                 codex_record("compact", "2026-01-01T01:03:00Z", plain=1000, cached=0),
+                 codex("2026-01-01T01:03:00Z", 600, plain=0, cached=0)])
+    requests = rp.cache_requests(path, "codex")
+    assert [r["model"] for r in requests] == ["gpt-test-a", "gpt-test-a", "gpt-test-b", "gpt-test-b"]
+    assert [r["input_tokens"] for r in requests] == [100, 200, 300, 1000]
+    assert [r["cached_input_tokens"] for r in requests] == [60, 100, 200, 0]
+    assert [r["timestamp"] for r in requests] == [rp.timestamp(t) for t in (
+        "2026-01-01T00:00:00Z", "2026-01-01T00:02:00Z", "2026-01-01T01:02:00Z", "2026-01-01T01:03:00Z")]
+    models = rp.cache_probe(str(tmp_path / "claude"), str(tmp_path / "codex"), 30)["harnesses"]["codex"]
+    assert models["gpt-test-a"]["requests"] == models["gpt-test-b"]["requests"] == 2
+    assert models["gpt-test-a"]["cached_input_share"] == 160 / 300
+    assert models["gpt-test-b"]["cached_input_share"] == 200 / 1300
+    assert models["gpt-test-a"]["unbucketed_requests"] == 1
+    assert models["gpt-test-a"]["gaps"]["<5m"]["requests"] == 1
+    assert models["gpt-test-b"]["gaps"]["1-24h"]["requests"] == 1
+    assert models["gpt-test-b"]["gaps"]["<5m"]["requests"] == 1
 
 
 def test_claude_fallback_iterations_replace_parent_usage_and_dedupe(tmp_path):

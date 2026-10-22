@@ -394,7 +394,7 @@ def collect_configs(spec: dict) -> dict:
 
 FENCE_RE = re.compile(r"^\s*(```|~~~)")
 CACHE_CONTEXT_RE = re.compile(r"\b(changelog|history|historical|examples?|samples?|demo)\b", re.I)
-CACHE_SECTION_RE = re.compile(r"^(?:changelog|history|examples?|samples?|demos?)\b", re.I)
+CACHE_SECTION_RE = re.compile(r"^(?:changelog|history|historical|examples?|samples?|demos?)\b", re.I)
 
 
 def cache_lines(text: str):

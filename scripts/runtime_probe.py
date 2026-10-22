@@ -138,7 +138,7 @@ def cache_requests(path, kind):
                             records[key] = {"model": model, "timestamp": when,
                                             "input_tokens": usage[0], "cached_input_tokens": usage[1]}
                         continue
-                    if row.get("type") != "event_msg" or payload.get("type") != "token_count":
+                    if has_records or row.get("type") != "event_msg" or payload.get("type") != "token_count":
                         continue
                     info = payload.get("info")
                     if not isinstance(info, dict):
@@ -161,7 +161,7 @@ def cache_requests(path, kind):
         pass
     if kind == "claude":
         return [entry for entries in requests.values() for entry in entries]
-    return list(records.values()) if has_records else list(requests.values())
+    return list(requests.values()) + list(records.values())
 
 
 def gap_bucket(seconds):
