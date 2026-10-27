@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+import json
 import shutil
 import sys
 from pathlib import Path
 
 import pytest
 
-from tools.quality import Diagnostic, collect, command, counts, diagnostic
+from tools.quality import Diagnostic, collect, collect_pytest, command, counts, diagnostic
 
 
 def test_fingerprints_survive_line_shifts(tmp_path: Path) -> None:
@@ -64,12 +65,70 @@ def test_suppressions_after_comment_explanations_are_findings(quality_project: P
     ]
 
 
-def test_pytest_warning_is_a_failure(quality_project: Path) -> None:
+def test_pytest_warning_is_a_structured_diagnostic(quality_project: Path) -> None:
     (quality_project / "tests/test_sample.py").write_text(
         "import warnings\n\n\n"
         "def test_sample():\n"
         '    warnings.warn("synthetic warning", UserWarning, stacklevel=1)\n'
     )
-    failures = [item for item in collect(quality_project) if item.tool == "pytest"]
-    assert len(failures) == 1
-    assert "UserWarning: synthetic warning" in failures[0].message
+    warnings = collect_pytest(quality_project)
+    assert len(warnings) == 1
+    assert warnings[0].rule == "builtins.UserWarning"
+    assert warnings[0].path == "tests/test_sample.py::test_sample"
+    assert warnings[0].message == "synthetic warning"
+    assert "tests/test_sample.py" in warnings[0].source
+    assert counts(warnings) - counts([]) == {warnings[0].fingerprint: 1}
+
+
+def test_pytest_failure_cannot_be_baselined(quality_project: Path) -> None:
+    (quality_project / "tests/test_sample.py").write_text(
+        "import warnings\n\n\n"
+        "def test_sample():\n"
+        '    warnings.warn("existing warning", UserWarning, stacklevel=1)\n'
+        '    assert False, "synthetic failure"\n'
+    )
+    with pytest.raises(RuntimeError, match="Pytest failed"):
+        collect_pytest(quality_project)
+
+
+def test_warning_allowance_preserves_visibility_and_duplicate_counts(
+    quality_project: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    sample = quality_project / "tests/test_sample.py"
+    sample.write_text(
+        "import warnings\n\n\n"
+        "def test_sample():\n"
+        "    for _ in range(1):\n"
+        '        warnings.warn("existing warning", UserWarning, stacklevel=1)\n'
+    )
+    accepted = collect_pytest(quality_project)
+    sample.write_text("\n\n" + sample.read_text())
+    repeated = collect_pytest(quality_project)
+    assert counts(accepted) == counts(repeated)
+    assert "UserWarning: existing warning" in capsys.readouterr().out
+    sample.write_text("\n" + sample.read_text().replace("range(1)", "range(2)"))
+    assert counts(collect_pytest(quality_project)) - counts(accepted) == {
+        accepted[0].fingerprint: 1
+    }
+
+
+def test_cyclic_resource_warning_uses_allocation_provenance(quality_project: Path) -> None:
+    sample = quality_project / "tests/test_sample.py"
+    sample.write_text(
+        "def test_sample(tmp_path):\n"
+        '    stream = open(tmp_path / "fixture.txt", "w")\n'
+        "    stream.cycle = stream\n"
+    )
+    first = collect_pytest(quality_project)
+    sample.write_text("\n\n" + sample.read_text())
+    second = collect_pytest(quality_project)
+    assert len(first) == 1
+    assert first[0].rule == "builtins.ResourceWarning"
+    assert first[0].path == "tests/test_sample.py::test_sample"
+    provenance = json.loads(first[0].source)
+    assert provenance["site"] == {
+        "path": "tests/test_sample.py",
+        "source": 'stream = open(tmp_path / "fixture.txt", "w")',
+    }
+    assert provenance["allocation"]
+    assert counts(first) == counts(second)

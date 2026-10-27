@@ -14,7 +14,6 @@ import sys
 import tarfile
 import tempfile
 import tokenize
-import xml.etree.ElementTree as ET
 from collections import Counter
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -116,40 +115,26 @@ def collect(root: Path) -> list[Diagnostic]:
                 if token.type == tokenize.COMMENT and suppression.search(token.string)
             )
 
-    with tempfile.TemporaryDirectory(prefix="prompt-audit-pytest-") as temp:
-        junit = Path(temp) / "tests.xml"
-        output = command(
-            root,
-            [
-                python,
-                "-m",
-                "pytest",
-                "-W",
-                "error",
-                "-q",
-                "tests",
-                f"--junitxml={junit}",
-                "-o",
-                "cache_dir=" + temp,
-            ],
-            (0, 1),
-        )
-        print(output, end="")
-        for case in ET.parse(junit).iter("testcase"):
-            found.extend(
-                Diagnostic(
-                    "pytest",
-                    "failure",
-                    case.get("classname", "") + "::" + case.get("name", ""),
-                    failure.get("message", "").replace(str(root), "<repo>"),
-                    "",
-                )
-                for failure in case.findall("failure")
-            )
-            if case.find("error") is not None:
-                message = f"Pytest setup or collection failed: {output}"
-                raise RuntimeError(message)
+    found.extend(collect_pytest(root))
     return found
+
+
+def collect_pytest(root: Path) -> list[Diagnostic]:
+    with tempfile.TemporaryDirectory(prefix="prompt-audit-pytest-") as temp:
+        report = Path(temp) / "warnings.json"
+        run = subprocess.run(
+            [sys.executable, str(ROOT / "tools/pytest_warnings.py"), str(report)],
+            cwd=root,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        print(run.stdout, end="")
+        if run.returncode != 0 or run.stderr.strip():
+            message = f"Pytest failed (exit {run.returncode}): {run.stderr or run.stdout}"
+            raise RuntimeError(message)
+        rows: list[dict[str, Any]] = json.loads(report.read_text(encoding="utf-8"))
+        return [Diagnostic(**row) for row in rows]
 
 
 def counts(findings: list[Diagnostic]) -> Counter[str]:
