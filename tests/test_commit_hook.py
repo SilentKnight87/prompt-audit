@@ -28,6 +28,13 @@ def git(root: Path, *args: str) -> str:
     "identity",
     [
         "Claude Code <noreply@anthropic.com>",
+        "Claude Sonnet 4.5 <noreply@anthropic.com>",
+        "Claude Opus 4.1 <noreply@anthropic.com>",
+        "Claude Haiku 4.5 <noreply@anthropic.com>",
+        "Claude Sonnet <noreply@anthropic.com>",
+        "Claude Opus 4 <noreply@anthropic.com>",
+        "claude haiku 3.5 <noreply@anthropic.com>",
+        "Claude Sonnet 4.5[bot] <bot@example.invalid>",
         "Codex <codex@openai.com>",
         "Cursor Agent <cursoragent@cursor.com>",
         "GitHub Copilot <copilot@github.com>",
@@ -49,6 +56,11 @@ def test_known_ai_identities_are_stripped(identity: str) -> None:
         "Alex Reviewer <claude@example.invalid>",
         "Alex Reviewer <gemini@example.invalid>",
         "Claude Martin <claude.martin@anthropic.com>",
+        "Claude Sonnet Smith <claude.sonnet@example.invalid>",
+        "Claude Opus Martin <claude.opus@example.invalid>",
+        "Claude Haiku Nguyen <claude.haiku@example.invalid>",
+        "Claude Sonnet 4.5 Reviewer <reviewer@example.invalid>",
+        "Gemini Pro Patel <gemini.pro@example.invalid>",
     ],
 )
 def test_human_identities_are_preserved(identity: str) -> None:
@@ -73,7 +85,18 @@ def test_git_commit_strips_ai_and_preserves_human_lines(tmp_path: Path) -> None:
         b"Co-Authored-By: Gemini Patel <gemini.patel@example.invalid>\r\n"
         + b"".join(
             f"Co-Authored-By: {name} <bot@example.invalid>\r\n".encode()
-            for name in ("Claude", "Codex", "Cursor", "Copilot", "Gemini", "GPT", "GPT6")
+            for name in (
+                "Claude",
+                "Claude Sonnet 4.5",
+                "Claude Opus 4.1",
+                "Claude Haiku 4.5",
+                "Codex",
+                "Cursor",
+                "Copilot",
+                "Gemini",
+                "GPT",
+                "GPT6",
+            )
         )
         + b"Generated with a tool\r\n"
         + "🤖 Generated with Claude Code\r\n".encode()

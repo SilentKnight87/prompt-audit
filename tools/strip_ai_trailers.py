@@ -8,7 +8,8 @@ import sys
 from pathlib import Path
 
 AI = re.compile(
-    r"(?:Claude(?: Code)?|Codex|Cursor(?: Agent)?|(?:GitHub )?Copilot|"
+    r"(?:Claude(?: Code| (?:Sonnet|Opus|Haiku)(?: [0-9]+(?:\.[0-9]+)*)?)?|"
+    r"Codex|Cursor(?: Agent)?|(?:GitHub )?Copilot|"
     r"Gemini(?:[ -]Code[ -]Assist)?|GPT(?:[- ]?\d[\w.-]*)?)"
     r"(?: ?(?:\[bot\]|bot))?(?:\s*<[^<>\r\n]+>)?",
     re.IGNORECASE,
