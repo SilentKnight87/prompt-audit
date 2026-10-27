@@ -113,7 +113,7 @@ def collect(root: Path) -> list[Diagnostic]:
                     "Inline check suppression",
                 )
                 for token in tokenize.generate_tokens(io.StringIO(file.read_text()).readline)
-                if token.type == tokenize.COMMENT and suppression.match(token.string)
+                if token.type == tokenize.COMMENT and suppression.search(token.string)
             )
 
     with tempfile.TemporaryDirectory(prefix="prompt-audit-pytest-") as temp:
@@ -124,6 +124,8 @@ def collect(root: Path) -> list[Diagnostic]:
                 python,
                 "-m",
                 "pytest",
+                "-W",
+                "error",
                 "-q",
                 "tests",
                 f"--junitxml={junit}",
