@@ -1,0 +1,24 @@
+[tool.ruff]
+target-version = "py39"
+line-length = 100
+extend-exclude = [".verify", "runs", ".cache"]
+
+[tool.ruff.lint]
+select = ["F", "E", "B", "SIM", "RET", "TRY", "PERF", "RUF", "UP", "I", "S110", "S112", "PGH003", "PGH004"]
+
+[tool.pyright]
+include = ["scripts", "tests", "tools", ".agents/skills/verify-prompt-audit/scripts"]
+extraPaths = ["scripts"]
+exclude = [".venv", ".verify", "runs", ".cache"]
+pythonVersion = "3.9"
+typeCheckingMode = "basic"
+strict = ["tools", "tests/test_quality.py", "tests/test_commit_hook.py", ".agents/skills/verify-prompt-audit/scripts"]
+reportUnnecessaryTypeIgnoreComment = "error"
+reportUnnecessaryCast = "error"
+reportMatchNotExhaustive = "error"
+
+[tool.vulture]
+min_confidence = 80
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
