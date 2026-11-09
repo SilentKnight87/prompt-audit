@@ -1,0 +1,2328 @@
+{
+  "base_revision": "9320fc8f451656d722317800d5188150e2a52870",
+  "config_sha256": "eba153a84b7485ba9248ccc18a841cc751605490a1a138d9346dd29d8b1b180d",
+  "findings": [
+    {
+      "fingerprint": "017c4b21beaa773941db9497d62afbaf1dfcfe26be579e59fdf8c2df2a2b3514",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[Request: 5 retries max\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates_Requ0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "0227560f5bc1334a8b1306635283e3c5e01bf9b7ee06ea57328fb67e0ded6c8b",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "RUF005",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Consider `[*args, \"--cache\"]` instead of concatenation",
+      "source": "rp.main(args + [\"--cache\"])"
+    },
+    {
+      "fingerprint": "029cab2a00a92ed49fa7b7167fb7dc4a16a294e15157caf6793f58119d046426",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_exclusions_preserve_live_metadata[# acme-demo agent rules\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_exclusions_preserve0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, prefix + \\\"Generated: 2026-10-17T00:44:29Z\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "02b5e2101729ee628b91d9d53b23460f00fb18d1872a16124696f3a08a1a2a9d",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (125 > 100)",
+      "source": "conf, why = \"low\", f\"{missing} (tool-owned state dir) is absent; the tool may not be installed on this host.\""
+    },
+    {
+      "fingerprint": "038a8742edda9afae3f7985db17bfaf856637d57649b3715e787ed40c1eac44e",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (132 > 100)",
+      "source": "out.append({\"model\": strip_model(c[\"model\"]), \"via\": f\"hermes:{r.get('profile','default')}\", \"effort\": c[\"effort\"]})"
+    },
+    {
+      "fingerprint": "0413a77a36006b53e126a36103615ad246161659e95748f824d3a75bbd9aac03",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "SIM115",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use a context manager for opening files",
+      "source": "for ln in open(path, encoding=\"utf-8\", errors=\"replace\"):"
+    },
+    {
+      "fingerprint": "053abd89b97131c51f59097697019cff6f00178d6f00a7abced74121891b0389",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "UP034",
+      "path": "scripts/prompt_audit.py",
+      "message": "Avoid extraneous parentheses",
+      "source": "vault_surfaces = set((jload(surfaces_file).get(\"vault_link_surfaces\", []) if surfaces_file else []))"
+    },
+    {
+      "fingerprint": "05a91427e1462efc63bd91c00609678d5815d2541137e42e51f26398f2d8dd1e",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_rules_track_current_lab_guidance",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_rules_track_current_lab_g0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"assert any(h[\\\"rule\\\"] == \\\"1b-show-reasoning\\\" for h in pa.scan_file(rec, [rules[\\\"1b-show-reasoning\\\"]]))\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "06c7a5f3445bcb7b8fe6a92bfede29bf586f00056a91ff53c0efa0545d02e925",
+      "count": 1,
+      "tool": "format",
+      "rule": "ruff-format",
+      "path": "tests/test_prompt_audit.py",
+      "message": "File needs formatting",
+      "source": "a1cca707a47a5159d736998e48fdd90bf9614eb74602a8a5949cf7eca043288a"
+    },
+    {
+      "fingerprint": "06f6b43f5a503678d6724af8a23c1fae0a06d5759eb05650e64bc9d990832da6",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (104 > 100)",
+      "source": "vault_surfaces = set((jload(surfaces_file).get(\"vault_link_surfaces\", []) if surfaces_file else []))"
+    },
+    {
+      "fingerprint": "0868b415c3197c0d16ea49d807eaf0c432d13a513e3186983826c0f5e61cc009",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[    Generated: 03:04\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates_____0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "0d873ac5ee0ac1ba1d158fd30be6186467cd75defbbebd56ce3c4282dfd704db",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (115 > 100)",
+      "source": "\"pattern\": \"1a\", \"evidence\": \"**IMPORTANT** Alice\", \"public_evidence\": \"IMPORTANT marker\","
+    },
+    {
+      "fingerprint": "0df92005862c53e11a333f37f9a2d9c0f7876d935fefbe883ac6327cd70dc8e6",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Line too long (107 > 100)",
+      "source": "assert rp.cache_probe(str(tmp_path), str(tmp_path), 0)[\"harnesses\"] == {\"claude_code\": {}, \"codex\": {}}"
+    },
+    {
+      "fingerprint": "0e068784387fe02056f8a00e7d2139d21e0d601095e0197cb15ab1d862d93fc9",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (124 > 100)",
+      "source": "assert r == {\"model\": \"claude-opus-5-5[1m]\", \"provider\": \"p\", \"effort\": \"medium\", \"aux\": {\"vision\": \"gemini-2.5-flash\"}}"
+    },
+    {
+      "fingerprint": "0e0cb3d3b259cc6f0361c6d784972fb0ffceca6606ec2eb33c2e5eff42c6d58d",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Today is {{now}}.-cache-template-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Today_is0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "0f50ef9aa66e55a2be42aae47c0afb676238259d983aca04b9ac73dfc8050241",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (117 > 100)",
+      "source": "rules = [{\"id\": \"c\", \"regex\": \"CRITICAL:\", \"case_sensitive\": True, \"group\": \"1\", \"category\": \"pressure-language\","
+    },
+    {
+      "fingerprint": "1133855b703dd21788a89d397b4f2ee3a6218ba18e5957e46307480b42cd32b1",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (116 > 100)",
+      "source": "\"so this entry applies to nothing unless that model is selected by hand.\", \"remove\", \"effort\")"
+    },
+    {
+      "fingerprint": "1138d6a3b40b9a48f64dfee103aa63b50388d381e9d0b8eafb7b7331870d81f4",
+      "count": 1,
+      "tool": "pyright",
+      "rule": "reportOptionalSubscript",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Object of type \"None\" is not subscriptable",
+      "source": "assert pa.classify_path(str(tmp_path / \"Vault\" / \"Gone\" / \"x.md\"))[0] == \"intermediate\""
+    },
+    {
+      "fingerprint": "1391a1700d86779182191054a6cded0f9b3a5536b99b631592574632a130692c",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "SIM115",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use a context manager for opening files",
+      "source": "text = open(f[\"path\"], encoding=\"utf-8\", errors=\"replace\").read()"
+    },
+    {
+      "fingerprint": "13ba68ba5a6e0e1a964853596c75d835bae576fce0fd7e444563d45da6f841ee",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Current date: {{date}}-cache-template-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Current_0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "13ed535e4fb5e2576c1e394f93ef1d0acfde93585cd85545f4c5cf7c32bf62e4",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (103 > 100)",
+      "source": "\"match\": name, \"readers\": sorted({r[\"model\"] for x in recs for r in x[\"readers\"]}),"
+    },
+    {
+      "fingerprint": "14346a38ef90c05cc27d184c9707b33bddb78dd1edeae119d5b42e636b428c7b",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (113 > 100)",
+      "source": "return True, f\"lab-specific ({', '.join(sorted(hit))}); file is also read by {', '.join(sorted(others))}\""
+    },
+    {
+      "fingerprint": "14e3f2a57a37d4e5d0a8c88dab03c504d148bd7786c93a511038c47e65de1bc7",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_exclusions_preserve_live_metadata[# History\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_exclusions_preserve1/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, prefix + \\\"Generated: 2026-10-17T00:44:29Z\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "1709881d85e486f15d8ad6f5f489a3c0bf68eede592c178212eff8e4d00d7cd6",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[**Run count:** 42-cache-live-number-low]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates___Run_co0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "17ca3df77de2eae1f858b9f7fc4e46139ab5c76472d6d46d9213311efe1921ea",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (123 > 100)",
+      "source": "\"sources\": [\"anthropic-audit-method#group-2-contradictions\"], \"confidence\": \"medium\", \"action\": \"flag\","
+    },
+    {
+      "fingerprint": "17e313548a468f5d1b69379dd8703f77e28871e9d0564eb34f643a37b2cb77de",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[We shipped the migration on 2026-01-02 at 03:04.\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates_We_s0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "18ea21f4c7d0dc6ed6b27a8f583bdbbb0175ef4cff76c04c6849d6dd917cca97",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[_Last updated 2026-10-01_-cache-date-low]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates__Last_up0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "1920617e3492c5f66c0442b3b9c05af37b3e7c4ca6a39b4ffa74b5c11194585e",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (144 > 100)",
+      "source": "MODEL_KEY_RE = re.compile(r\"^(\\s*)(default|model|provider|reasoning_effort|model_reasoning_effort|effortLevel)\\s*[:=]\\s*\\\"?([^\\\"#\\n]+?)\\\"?\\s*$\")"
+    },
+    {
+      "fingerprint": "199d1d379532e26b8fcb60ad4864f4b89226be8bf9b9bd432361391e32225fdd",
+      "count": 1,
+      "tool": "pyright",
+      "rule": "reportArgumentType",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Argument of type \"None\" cannot be assigned to parameter \"fp\" of type \"IO[bytes]\" in function \"redirect_request\"\n\u00a0\u00a0\"None\" is not assignable to \"IO[bytes]\"",
+      "source": "new = pa.Redirect308().redirect_request(req, None, 308, \"moved\", {}, \"https://b.example/y\")"
+    },
+    {
+      "fingerprint": "19fa60e700a668d14e1a8c0f3d9e16f7350347cbe062871586297e050a77744b",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[As of 2026-01-02 03:04:05+00:00-cache-timestamp-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_As_of_200/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "1a4100e9df8f1e4d9999a81f00000eab05346f2e5ea8b8ef94065afb12a6fad9",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (121 > 100)",
+      "source": "l = sub.add_parser(\"leakcheck\"); l.add_argument(\"files\", nargs=\"+\"); l.add_argument(\"--public-config\", required=True)"
+    },
+    {
+      "fingerprint": "1ae3e3358eb9985019f2a569dca8cf99d2781d69e395e151c8764f1d7e7d25b0",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (112 > 100)",
+      "source": "\"why\": \"Codex uses AGENTS.override.md in place of AGENTS.md in the same directory, so this \""
+    },
+    {
+      "fingerprint": "1bda6082f52191fe53313145b49ee9a76832530788083544c3c04e8837f51127",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[**Session ID:** 00000000-0000-4000-8000-000000000001-cache-generated-id-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates___Sessio0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "1ddb5ebdb02231fc89fac9e862bb66aba8df62ddedaf9386a0f70a3c95154386",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (118 > 100)",
+      "source": "for key in (f\"category:{c['category']}\", f\"confidence:{c['confidence']}\", f\"owner:{c['owner'].split(':')[0]}\","
+    },
+    {
+      "fingerprint": "1e1a4d7926c9b902f539e0923f8dedd25153f86ae628d0ae83b1af627c3a0ba8",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (114 > 100)",
+      "source": "claude = w(tmp_path / \"claude\" / \"CLAUDE.md\", \"<!-- X BEGIN -->\\nrule one.\\nrule two cut \u2026\\n<!-- X END -->\\n\")"
+    },
+    {
+      "fingerprint": "1f4be3149db9e3be180971e1f10c54df002a2c2eff426a76b46b144fe0228889",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (118 > 100)",
+      "source": "s = [f\"# Prompt audit dry run - {tri.get('date', today())}{' (public-safe)' if public else ' (private)'}\", \"\"]"
+    },
+    {
+      "fingerprint": "1f54b67d14f11b9a31ecbc01f3f673f0f03c34cb9e499785b28e8215504b277d",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Line too long (105 > 100)",
+      "source": "text = \"---\\nupdated: 2026-01-02\\n---\\n## Examples\\nGenerated: 03:04\\n## Current\\nGenerated: 03:04\\n\""
+    },
+    {
+      "fingerprint": "1f8164171debd22a16d8dc5da184127f6cf6178ebac06e5b6ccec69eccdba098",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_scope_and_position",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_scope_and_position0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text, always_loaded=False) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "1fb36910ca4cb346469bfe2f9000038720ad9ed85fee011528b9f61b3880a080",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "SIM115",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use a context manager for opening files",
+      "source": "for ln in open(path, encoding=\"utf-8\", errors=\"replace\").read().splitlines():"
+    },
+    {
+      "fingerprint": "2125b409e28ea22b9fb54b56b4df58af850b9c64a44bdacc02a4bd5ea8772a94",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "SIM115",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use a context manager for opening files",
+      "source": "live = os.path.isfile(ov) and open(ov, encoding=\"utf-8\", errors=\"replace\").read().strip()"
+    },
+    {
+      "fingerprint": "215247c36184f549f1e6bf57a9ad44def455e139962816c48a01fd83dbb4cf2d",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (125 > 100)",
+      "source": "\"agent:\\n  reasoning_effort: medium\\nauxiliary:\\n  vision:\\n    provider: gemini\\n    model: gemini-2.5-flash\\n\")"
+    },
+    {
+      "fingerprint": "2161342da535c595fef0e21646e8a008cb56208c4ffcb1bb6d22aebbb876d088",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (101 > 100)",
+      "source": "skipped.append({\"path\": p, \"reason\": \"dataless (cloud placeholder, not downloaded)\"})"
+    },
+    {
+      "fingerprint": "226f1542cc4bc50d50cf0beb9a3b969165e573b4fc376b07a6381025b5ad42a6",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (128 > 100)",
+      "source": "if rec[\"chars\"] > rule[\"max_chars\"] and not os.path.isdir(os.path.join(os.path.dirname(rec[\"path\"]), \"references\")):"
+    },
+    {
+      "fingerprint": "22710f40cdd7a678b8a0c99c5285901214048e6674e653da78f9f762984c560f",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (125 > 100)",
+      "source": "cands.sort(key=lambda c: (rank[c[\"confidence\"]], not c[\"always_loaded\"], c[\"owner\"] != \"authored\", c[\"path\"], c[\"line\"]))"
+    },
+    {
+      "fingerprint": "24cb07252876168bd78df564bbe24c7f10feb6a95d945c9ef9f63834404ea8a6",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (103 > 100)",
+      "source": "rec = {\"path\": p, \"surface\": s[\"id\"], \"surface_label\": s[\"label\"], \"harness\": s[\"harness\"],"
+    },
+    {
+      "fingerprint": "25514ec63f5e952e6f4aa3366ff1541442e091a275a584011e97ef1fdfaa1f8c",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Current date: ${DATE}-cache-template-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Current_1/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "267cb3dd4189f68271811f95068af4d811aa7360558876653a8eeb76b2ca4c86",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[## History\\nGenerated: 03:04\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates____H0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "282d867931b6f57ffd756bf3547b6d1e05ec510f15fdd876b1990d0b4da10364",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (103 > 100)",
+      "source": "outs = [str(tmp_path / \"out\" / \"report.public.md\"), str(tmp_path / \"out\" / \"proposed.public.diff\")]"
+    },
+    {
+      "fingerprint": "2abd6631f146fbd6a56a1abe21cbdc44c13666da9e73b007d027ecded9ee5c7c",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (102 > 100)",
+      "source": "inv = {\"files\": [{\"path\": str(base), \"readers\": codex, \"harness\": \"codex\", \"copies\": [str(base)]},"
+    },
+    {
+      "fingerprint": "2cd5c7cef2886923a46fbdca94f623a72bc4234a2bae0123b6b01cb8de8cd7a4",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[Run at most 5 tasks.\\nThere are 12 fixed steps.\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates_Run_0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "2ea9791d20d9405eb6b70b4fdee9e69fe0121d964b29527385354792c2cc9bb6",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (121 > 100)",
+      "source": "if re.search(r\"\\b(retired|deprecated|legacy|older|previous|from|vs\\.?|than|migrat|history|was)\\b\", ln, re.I):"
+    },
+    {
+      "fingerprint": "2f37459bac6a9a6efcdd9da979c7fa6831b3d303f56e882dc38400d6fd6db72f",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Line too long (103 > 100)",
+      "source": "context(\"gpt-test-b\"), codex(\"2026-01-01T01:02:00Z\", 2100, plain=1000, cached=900)])"
+    },
+    {
+      "fingerprint": "31c706ed6f679502bce663b92a66d459a41456464e5028ba52b0dbfd58532db1",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[**Last updated:** 03:04-cache-timestamp-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates___Last_u0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "324501d0520171dc8eb58b48b50b7604f8109536ed9d548f36d38aaada061310",
+      "count": 1,
+      "tool": "policy",
+      "rule": "suppression",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Inline check suppression",
+      "source": "import prompt_audit as pa  # noqa: E402"
+    },
+    {
+      "fingerprint": "33153e59869b96c839e14aa30851245e7b342b8b8f0d19fd72aed70d0da08d77",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (103 > 100)",
+      "source": "os.path.exists(os.path.join(d, \"package.json\")) or os.path.isdir(os.path.join(d, \".git\"))):"
+    },
+    {
+      "fingerprint": "33e0bdb221b69915029e14e6e4180b462846be4e3346d6003c44bb3cb21125ce",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[Reference ID: 00000000-0000-4000-8000-000000000001\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates_Refe0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "352dd720cbcb35a81dc78d05822941ebe7ac7fe7dfc4ebb39a39e54cab60f5b2",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "RUF005",
+      "path": "scripts/prompt_audit.py",
+      "message": "Consider iterable unpacking instead of concatenation",
+      "source": "configured += [h.get(\"model\")] + list((h.get(\"aux\") or {}).values())"
+    },
+    {
+      "fingerprint": "35af6e46a4c48fd79b065cc443e9afffb7e5c40f93280a26dcfc07e0dc8340f8",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "SIM115",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use a context manager for opening files",
+      "source": "for ln in open(p, encoding=\"utf-8\", errors=\"replace\"):"
+    },
+    {
+      "fingerprint": "360cde3b82ae344868e88063d5f9ce40b123dc1939aa361c08693afcde0433e3",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (109 > 100)",
+      "source": "models.append((f\"hermes:{name}\", f\"auxiliary.{role}\", m, env[\"paths\"][\"hermes\"].get(name, name)))"
+    },
+    {
+      "fingerprint": "36b9445ae58c190863e7c4612a4e6ba1db151886c8807dbe67dc79656d696d73",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_excludes_sections_starting_with_topic[Examples]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_excludes_sections_s2/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, \\\"## \\\" + topic + \\\" of prior runs\\\\nGenerated: 03:04\\\\n\\\") == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "36ba27161bd7423e6f683ece766a67ca85800dfc105783bd18faeb371cf2a9f5",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (107 > 100)",
+      "source": "res[\"env\"][\"current_versions\"] = {k: \".\".join(map(str, v)) for k, v in env[\"current_versions\"].items()}"
+    },
+    {
+      "fingerprint": "36bc6172c27b19fd8a646416b9d997794228bef6044be71349b15d6297b75c37",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_scan_skips_fences_and_flags_vendor",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_scan_skips_fences_and_fla0/s/SKILL.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"hits = pa.scan_file(rec, rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "378fc8672f57075eae2b078fe4555e27ce5dc33ac4fb3d3c267c629441d5e83b",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_report_public_redaction_edits_and_leakcheck",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_report_public_redaction_e0/out/report.private.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"assert pa.leakcheck([str(tmp_path / \\\"out\\\" / \\\"report.private.md\\\")], [\\\"Alice\\\"])\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(p, encoding=\\\"utf-8\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(p, encoding=\\\"utf-8\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "38aa7c099258780da9bbb49615e4232b2c320e2bc8142e59430030df5ec7c705",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Generated: 2026-01-02T03:04:05Z-cache-timestamp-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Generate0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "39fffe40ff4fde55692bc6d18394f2b28723e52e9e99e2c2671c2ad03fc7bacd",
+      "count": 2,
+      "tool": "ruff",
+      "rule": "E702",
+      "path": "scripts/prompt_audit.py",
+      "message": "Multiple statements on one line (semicolon)",
+      "source": "l = sub.add_parser(\"leakcheck\"); l.add_argument(\"files\", nargs=\"+\"); l.add_argument(\"--public-config\", required=True)"
+    },
+    {
+      "fingerprint": "3a465491d5049ff6ecb13b0e9c2915fe8067b48e045ef2b563068073a4ac5589",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (106 > 100)",
+      "source": "\"harness\": \"multi\", \"owner\": \"authored\", \"always_loaded\": False, \"copies\": len(paths),"
+    },
+    {
+      "fingerprint": "3b7f0a07802f7b61dd8ce26128bd87af2551f8174c6f5d8b4d6cf579bd4336d4",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Run #42-cache-live-number-low]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Run__42_0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "3c4728323eedc48589263edfd97f066b82846e37fd383e6995f54d7b2b7c0a85",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (107 > 100)",
+      "source": "cfind(f[\"harness\"], f[\"path\"], \"managed-block\", m.group(1).strip()[-120:] + m.group(2), \"high\","
+    },
+    {
+      "fingerprint": "3d52530d30aec04f0ae765e55afbd638fee55a0578fd1e7ea947d8df73e2c42e",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "F401",
+      "path": "tests/test_prompt_audit.py",
+      "message": "`pytest` imported but unused",
+      "source": "import pytest"
+    },
+    {
+      "fingerprint": "3da8b714e2c58ac52a48efb25809ad02a597bf15aba677143887a495e461f115",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (105 > 100)",
+      "source": "f\"{newer}. Pinned names silently go stale when the alias or default moves.\","
+    },
+    {
+      "fingerprint": "3e8645be1135a366ff01ee1105343b4a1c9ad388270b38aa8cd4eb2aa12a1048",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (110 > 100)",
+      "source": "\"why\": why, \"sources\": [\"anthropic-whats-new-opus-5-5\", \"anthropic-audit-method#group-4\"],"
+    },
+    {
+      "fingerprint": "3f19d4e922f050b85607f389ba639f068694f0fc153db566c23ecc36b65ea592",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (118 > 100)",
+      "source": "out.append(drift(rec, i, \"path\", ln, raw, conf, why, \"rewrite\" if authored and conf != \"low\" else \"flag\"))"
+    },
+    {
+      "fingerprint": "4175e4f5aa72bc6f1c0ed9fbfccdb8f85c523343823c74d81711e582e61cedaf",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_exclusions_preserve_live_metadata[## Shell history and memory\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_exclusions_preserve2/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, prefix + \\\"Generated: 2026-10-17T00:44:29Z\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "4304278a27c4c0bd342b1b5d1781e8fd3ab86319d80d073ca0fae5e1b8d72c04",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Line too long (104 > 100)",
+      "source": "\"2026-01-01T00:00:00Z\", \"2026-01-01T00:02:00Z\", \"2026-01-01T01:02:00Z\", \"2026-01-01T01:03:00Z\")]"
+    },
+    {
+      "fingerprint": "431b9c79e2c6b31ed9ef0e01b05e694ab44a1d4d63d8e18a9973a001c36be1f1",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_config_drift_effort_key_and_truncation",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_config_drift_effort_key_a0/claude/CLAUDE.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"cats = {(c[\\\"category\\\"], c[\\\"match\\\"]) for c in pa.config_drift(inv, env)}\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(f[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(f[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "46cc9611bcdf44981148ffecdecd940e2d134653503fa7986783f594126a004e",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "SIM115",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use a context manager for opening files",
+      "source": "lines = open(path, encoding=\"utf-8\", errors=\"replace\").read().splitlines()"
+    },
+    {
+      "fingerprint": "47a914d95d47fa255299a98ac715c23dc39a08e90ee3553ab09e71beccf6040c",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[## Changelog\\nUpdated: 2026-01-02T03:04:05Z\\n### Details\\nRun count: 42\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates____C0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "4867cf667f925746df39329175a02a5fc4b22e7add0e507b7206c595479d1d16",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (116 > 100)",
+      "source": "s = sub.add_parser(\"scan\"); s.add_argument(\"--inventory\", required=True); s.add_argument(\"--out\", required=True)"
+    },
+    {
+      "fingerprint": "4a6c67ea80b7ecfa535a04e877785658abd5d638a42b9143e7d546af8c11e772",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (116 > 100)",
+      "source": "\"claude-fable-5\": {\"effortLevel\": \"high\"}, \"claude-fable-5-1\": {\"effortLevel\": \"high\"}}},"
+    },
+    {
+      "fingerprint": "4b19369bf69c9957be2b3ac8978aaf9c9f7cab872f64d18dc97cc9d32e59d6a9",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (112 > 100)",
+      "source": "usages = iterations if isinstance(iterations, list) and len(iterations) > 1 else [raw_usage]"
+    },
+    {
+      "fingerprint": "4b3e6c1466ae3ecf64db4338e79c928da325fdfca28f3d670068213f94ca6fc1",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (104 > 100)",
+      "source": "assert pa.classify_path(str(tmp_path / \"Vault\" / \"Notes\" / \"new-file.md\")) is None  # generated leaf"
+    },
+    {
+      "fingerprint": "4bca285ac451fd2756652636db47ca00cf787fb682b87f306949eaf7de30e6da",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_report_public_redaction_edits_and_leakcheck",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_report_public_redaction_e0/out/report.public.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"assert pa.leakcheck(outs, [\\\"Alice\\\"]) == []\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(p, encoding=\\\"utf-8\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(p, encoding=\\\"utf-8\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "4bf4cd1c23bad757d3f06f1c6ddf7ecb4f3e4eba2654571764ee5faafdf1f070",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (110 > 100)",
+      "source": "print(f\"skipped {s_['path']}: {s_['reason']} (download it, or list it in the report assumptions)\")"
+    },
+    {
+      "fingerprint": "4db14cec0616e0d7eabaaa15a63ae68c9bf1ee80ecaa145824fd89cc17c3f81b",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (102 > 100)",
+      "source": "SF_DATALESS = 0x40000000  # macOS: file content evicted to the cloud; open() blocks until it downloads"
+    },
+    {
+      "fingerprint": "4eb99d2add4d1b0017dddcafbccf11f544bee92d30a841e30147997955e287e6",
+      "count": 1,
+      "tool": "format",
+      "rule": "ruff-format",
+      "path": "scripts/prompt_audit.py",
+      "message": "File needs formatting",
+      "source": "bb79c4592b8ddac868b719c9d0969ac99df1260a4032ac9c583783d86556dd47"
+    },
+    {
+      "fingerprint": "4f26f8e581bc35c4b72f0f104faba86225108e1baf34bd7f6093eff3c26caf19",
+      "count": 1,
+      "tool": "format",
+      "rule": "ruff-format",
+      "path": "tests/test_cache_reuse.py",
+      "message": "File needs formatting",
+      "source": "f19cf9dfae38339e13a091e83ad7e6a9c42176b97a2d040fed312f3a2fbcfe60"
+    },
+    {
+      "fingerprint": "5053ac162bc0f5e52359543f3ea86fa686d971e7a2ff522127f63716929284a5",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (114 > 100)",
+      "source": "cfg = w(tmp_path / \"config.yaml\", \"model:\\n  default: claude-opus-5-5[1m]\\n  provider: p\\n  api_key: SECRET\\n\""
+    },
+    {
+      "fingerprint": "509af83e7f4dd881ad0b36e89b3cf9f4280c3991066d1512d7271aa198694e55",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (114 > 100)",
+      "source": "s += [\"### Collector candidates before review\", \"\"] + [f\"- {x}\" for x in tri[\"machine_counts\"]] + [\"\"]"
+    },
+    {
+      "fingerprint": "509eb17fe4fe8cddb8a97cc4332068dea6f84ef4da68670f4b13848da4f179ec",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[Updated the migration on 2026-01-02 at 03:04.\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates_Upda0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "51cf3fcd51e965ca0a99e32c048e4a520feb99e5aabd760c351e8adf1690cbb8",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (118 > 100)",
+      "source": "inv = {\"files\": [{\"path\": str(claude), \"always_loaded\": True, \"harness\": \"claude-code\", \"copies\": [str(claude)]}],"
+    },
+    {
+      "fingerprint": "52bd5502829822586ef7bb904f44105a3cba16b2d21f05418aef47417dde743e",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (140 > 100)",
+      "source": "s.add_argument(\"--guidance\"); s.add_argument(\"--vault\"); s.add_argument(\"--surfaces\"); s.add_argument(\"--no-blame\", action=\"store_true\")"
+    },
+    {
+      "fingerprint": "52e2da60a5d8c96ecf166c0528893e58adf976f516d50ba8a49eaa2324f76b9c",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_exclusions_preserve_live_metadata[    1. ]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_exclusions_preserve4/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, prefix + \\\"Generated: 2026-10-17T00:44:29Z\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "544078fae794651447d6b702a8e2d1d5108fc6a9ea8199bf3edf597909369d47",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (107 > 100)",
+      "source": "def render_report(triage_file: str, cands_file: str, out_dir: str, public_cfg: dict | None = None) -> dict:"
+    },
+    {
+      "fingerprint": "5492de9272f08ee589df88168b54c0d3a606b92fd019954f262ebd63440a73fa",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_codex_override_shadows_agents_md",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_codex_override_shadows_ag0/codex/AGENTS.override.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"hits = pa.shadow_drift(inv)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"live = os.path.isfile(ov) and open(ov, encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read().strip()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"live = os.path.isfile(ov) and open(ov, encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read().strip()\"}}"
+    },
+    {
+      "fingerprint": "549396a19039e8dcac8fd44de734956465ffa137997d8a0f7177a6fda1f90e89",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (112 > 100)",
+      "source": "models[name] = {**empty(), \"gaps\": {gap: empty() for gap in GAPS}, \"unbucketed_requests\": 0}"
+    },
+    {
+      "fingerprint": "54b0d506dfd265ba935a2d8f94f7facdff3e3ad64a72a098ae510ef5431cf1b1",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (106 > 100)",
+      "source": "\"match\": \"AGENTS.override.md\", \"readers\": sorted({r[\"model\"] for r in f[\"readers\"]})})"
+    },
+    {
+      "fingerprint": "551632d9358d208fd80fd4d257defea45c0477aed4426910bebc757486d2e81c",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (102 > 100)",
+      "source": "rec[\"redirected_to\"] = final  # update labs.json so the registry stays current"
+    },
+    {
+      "fingerprint": "5540019d94e93b9b0085193544998286e89b62403b27be39de8684226adb950b",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "S110",
+      "path": "scripts/prompt_audit.py",
+      "message": "`try`-`except`-`pass` detected, consider logging the exception",
+      "source": "except Exception:"
+    },
+    {
+      "fingerprint": "55958fa65b81d18fe2f8f2a61ede387be293d6372a9963573ee7c6fb1afb07e5",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (117 > 100)",
+      "source": "s.append(f\"{fid}. {red(r.get('headline', r['pattern'])) if public else r.get('headline', r['pattern'])}\")"
+    },
+    {
+      "fingerprint": "584e024897f65af793871970c7e064b53987602f45ac2e07bd08d6651e0c4476",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (124 > 100)",
+      "source": "f'\"modelSettings\": {{\"{key}\": {{\"effortLevel\": \"{v.get(\"effortLevel\")}\"}}}} (active model: {active})',"
+    },
+    {
+      "fingerprint": "59760051e7ae61dc0c42898db6f433ff1086cf0b14ce41fb3bca09c41c60bd51",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (105 > 100)",
+      "source": "# a cloud-evicted (dataless) file blocks open() until it downloads; the collector must not hang on it"
+    },
+    {
+      "fingerprint": "5a1ae31c6c9768c389604ff43de0040d50ed4f18ea418a4a164371580ff4bf69",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (103 > 100)",
+      "source": "# Streamed chunks repeat one message; keep its latest counters and first timestamp."
+    },
+    {
+      "fingerprint": "5b221975255d340f0076f35f52008454d643d51e1be8453237c5c7811230945a",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_scope_and_position",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_scope_and_position0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"first, last = cache_hits(tmp_path, text)\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "5bb9105d9b4eab6c12f3f3fefbf0b18257d016203e925155a2405416e2aeacd8",
+      "count": 1,
+      "tool": "pyright",
+      "rule": "reportAttributeAccessIssue",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Cannot access attribute \"handlers\" for class \"OpenerDirector\"\n\u00a0\u00a0Attribute \"handlers\" is unknown",
+      "source": "assert any(isinstance(h, pa.Redirect308) for h in pa.build_opener().handlers)"
+    },
+    {
+      "fingerprint": "5c0b6de2eb01488485fc8383670162ed3c973fb6158b60be88787c27c9511c1d",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (115 > 100)",
+      "source": "\"owner\": f.get(\"owner\", \"authored\"), \"always_loaded\": True, \"copies\": len(f.get(\"copies\", [])),"
+    },
+    {
+      "fingerprint": "5e75cef6f2eac775a5c7b0f5cb0a7bf2f567ccc6bcad2769fe1bdfb9454a965b",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (117 > 100)",
+      "source": "with http.open(urllib.request.Request(url, headers={\"User-Agent\": \"prompt-audit/0.2\"}), timeout=30) as r:"
+    },
+    {
+      "fingerprint": "5f6a157019031b289efb89109098d56c8bba85fe4c8bd3ef92d5a0d61b728917",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E402",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Module level import not at top of file",
+      "source": "import runtime_probe as rp"
+    },
+    {
+      "fingerprint": "60a8c799e4b9b8ea328fcde26811cb08ab9427fc8d1a0a1c614e836cfb08ff04",
+      "count": 2,
+      "tool": "ruff",
+      "rule": "E702",
+      "path": "scripts/prompt_audit.py",
+      "message": "Multiple statements on one line (semicolon)",
+      "source": "r = sub.add_parser(\"report\"); r.add_argument(\"--triage\", required=True); r.add_argument(\"--candidates\", required=True)"
+    },
+    {
+      "fingerprint": "6249ef58fd9562db4711d4cd7525aa1f0cc43fb754da7e515506234795df507c",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Last updated: 2026-10-17 14:03 EDT-cache-timestamp-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Last_upd3/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "631343c7b8daba5ef9c68ed3ec0ce522fe49eb8f3602edd55355876db1bd4c3b",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (110 > 100)",
+      "source": "res = {\"generated_on\": today(), \"env\": {k: env[k] for k in (\"configured\", \"catalog\", \"current_versions\")},"
+    },
+    {
+      "fingerprint": "63e7c9473eaebfe6d4a9e1db12b0dcbef3aa55ae477f01dd88bd86c9717d6d42",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[- 2026-10-17 14:03 fixed\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates___200/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "649295e09a35fbbcdff0da3fe43d413065303200b014c685f01e9619b4a173e2",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (101 > 100)",
+      "source": "live = os.path.isfile(ov) and open(ov, encoding=\"utf-8\", errors=\"replace\").read().strip()"
+    },
+    {
+      "fingerprint": "67153153615f652f214360a58202e5e7a2021ac43f5083eaee0279d16d988719",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Updated: 2026-01-02-cache-date-low]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Updated_0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "67cf45fccaf23a926d7d25b756272b4dccb11e8781f8e8a4463722865bdeb509",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E402",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Module level import not at top of file",
+      "source": "import prompt_audit as pa"
+    },
+    {
+      "fingerprint": "69a8de2b610565685ce0c30ec9e2bfe15ae899f5bcf40e6d82618a653bf94bf7",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (116 > 100)",
+      "source": "\"pattern\": {\"model-id\": \"Drift - pinned or older model ID\", \"path\": \"Drift - named path does not exist\","
+    },
+    {
+      "fingerprint": "6b932dfe790ba653d86a7ae24e4386b993795bc93cc057b9c10c7bd294340491",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (118 > 100)",
+      "source": "\"codex\": {f\"{m}@{e}\": n for (m, e), n in sessions(f\"{codex_dir}/*/*/*/*.jsonl\", \"codex\", last).most_common()},"
+    },
+    {
+      "fingerprint": "6d538e865a0b7a2f128af93ad377f04b3a004189247264147b52e18f3c95ef64",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Last updated: 2026-10-17 14:03 UTC-cache-timestamp-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Last_upd1/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "738ba1db0170c850cb95a644627e885f70e74a0d9e851bd9d0853328cdac655d",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (109 > 100)",
+      "source": "dep = next((d for d in env.get(\"deprecated_paths\", []) if p.startswith(expand(d[\"path\"]))), None)"
+    },
+    {
+      "fingerprint": "749e3ac8ad2143ffe9bf3e7e1f6a5bc2ffa3f548d1b86dbb2cbc5fc360eeabd9",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (103 > 100)",
+      "source": "\"\"\"'openai-codex/gpt-6-astra:high' -> 'gpt-6-astra'; 'claude-opus-5-5[1m]' -> 'claude-opus-5-5'.\"\"\""
+    },
+    {
+      "fingerprint": "75bc036b5b52d6f4f0fdebbdc6e0a51924090d53ca161626fb8fc564cb3d79d3",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (103 > 100)",
+      "source": "\"catalog\": sorted(set(catalog)), \"vault_root\": vault_root, \"paths\": paths or {\"hermes\": {}}}"
+    },
+    {
+      "fingerprint": "77237cd1b175e68a62e1a09c4dd27be57d93cec70482e967ab42e66437f135a3",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "RUF005",
+      "path": "scripts/prompt_audit.py",
+      "message": "Consider iterable unpacking instead of concatenation",
+      "source": "s += [\"## Summary\", \"\"] + [red(tri[\"summary\"]) if public else tri[\"summary\"], \"\"]"
+    },
+    {
+      "fingerprint": "7a5d8c48832e2e05ee9d5b7c70862120ce07847badbbe1a1a5242b93dcb6201f",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_hermes_config_reader_reads_only_model_keys",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_hermes_config_reader_read0/config.yaml' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"r = pa.read_hermes_config(str(cfg))\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"lines = open(path, encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read().splitlines()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"lines = open(path, encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read().splitlines()\"}}"
+    },
+    {
+      "fingerprint": "7a96a82e97ee930c8cd06f64f94a40e038f697a1126d290cd134ae4868ec1acd",
+      "count": 3,
+      "tool": "ruff",
+      "rule": "S112",
+      "path": "scripts/prompt_audit.py",
+      "message": "`try`-`except`-`continue` detected, consider logging the exception",
+      "source": "except Exception:"
+    },
+    {
+      "fingerprint": "7aa1aececb5d677b79a679a8605e1df13b6c4c2685a385f42d24d2f2ac596c0b",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Line too long (125 > 100)",
+      "source": "counts = rp.cache_probe(str(tmp_path / \"claude\"), str(tmp_path / \"codex\"), 30)[\"harnesses\"][\"claude_code\"][\"claude-test\"]"
+    },
+    {
+      "fingerprint": "7af92c2e72a17804cad359acfc24387e335ed24bfd787e3176249a9c8d9d1651",
+      "count": 2,
+      "tool": "ruff",
+      "rule": "E702",
+      "path": "scripts/prompt_audit.py",
+      "message": "Multiple statements on one line (semicolon)",
+      "source": "s = sub.add_parser(\"scan\"); s.add_argument(\"--inventory\", required=True); s.add_argument(\"--out\", required=True)"
+    },
+    {
+      "fingerprint": "7b5cde56342fd2baf864c97632cf3a460f368a61d619eb74c813f8b7a6a17801",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "SIM115",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use a context manager for opening files",
+      "source": "text = open(src, encoding=\"utf-8\").read()"
+    },
+    {
+      "fingerprint": "7cfb175388f55164073c790b012486546274b9bc00349f6f07330a442c3a243d",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (112 > 100)",
+      "source": "\"file is not loaded for Codex. Either the override is a forgotten temporary file or \""
+    },
+    {
+      "fingerprint": "7d07129df20c6308242390e691e21ae2a539b963439beb8183cf70f68d1d381a",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (114 > 100)",
+      "source": "res = scan(a.inventory, a.out, guidance_manifest=a.guidance, vault_root=a.vault, surfaces_file=a.surfaces,"
+    },
+    {
+      "fingerprint": "7d4d0f493d1f385c20943da462369088090527f6c9a4d9d58dad958cb9381731",
+      "count": 2,
+      "tool": "ruff",
+      "rule": "E702",
+      "path": "scripts/prompt_audit.py",
+      "message": "Multiple statements on one line (semicolon)",
+      "source": "i = sub.add_parser(\"inventory\"); i.add_argument(\"--surfaces\", required=True); i.add_argument(\"--out\", required=True)"
+    },
+    {
+      "fingerprint": "7ddbf86449e5d23ad03a056cc4de547cc907c5cd1ad495434c8ed20e9f85f82d",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Budget: 10% left-cache-live-number-low]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Budget__0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "7ecdbccf31c326b3c28cec240905ba150c627f7e218885046ec917b9240c77f2",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Generated: $(date +%FT%T)-cache-template-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Generate1/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "7f09d8b72303b615c362ff38dee533e76953be90ec9019a76541c09edd2c26c4",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (123 > 100)",
+      "source": "f = w(tmp_path / \"s\" / \"SKILL.md\", \"---\\nname: s\\ndescription: d\\n---\\n```\\nCRITICAL: in code\\n```\\nCRITICAL: do it\\n\")"
+    },
+    {
+      "fingerprint": "7fd305beaabd381eca227a267c3f165dd70f6c91beb2f62ab5df42cb4dcf203f",
+      "count": 1,
+      "tool": "pyright",
+      "rule": "reportOperatorIssue",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Operator \"in\" not supported for types \"Literal['differs']\" and \"str | None\"\n\u00a0\u00a0Operator \"in\" not supported for types \"Literal['differs']\" and \"None\"",
+      "source": "assert ok and \"differs\" in note"
+    },
+    {
+      "fingerprint": "802c507b85f3d9185ce89a9031c44d2d634f878bb5e5102e275ff9d60b95af82",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_excludes_sections_starting_with_topic[Changelog]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_excludes_sections_s0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, \\\"## \\\" + topic + \\\" of prior runs\\\\nGenerated: 03:04\\\\n\\\") == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "80b4add798b25f5915008ba6fe1060699a890f8069a357d297bbe35f27b6a090",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (110 > 100)",
+      "source": "entries.append({\"model\": item_model if isinstance(item_model, str) else \"unknown\","
+    },
+    {
+      "fingerprint": "8133a93d8e5ad62fc3b6ab4da7c6cce077d07cad1fcdd3ebe68c1dd0980a4f74",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "PERF203",
+      "path": "scripts/prompt_audit.py",
+      "message": "`try`-`except` within a loop incurs performance overhead",
+      "source": "except Exception:"
+    },
+    {
+      "fingerprint": "81f1c738a5a6d7f8071c4872173fa8b7974b0bb2e490a76a6c58017a72205a0d",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[*Last updated: 2026-10-01*-cache-date-low]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates__Last_up1/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "8232e4cd2a6d080f044f7f850b954c9418ecf3a0f08f7e44ed98f25ed372a07b",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (120 > 100)",
+      "source": "i = sub.add_parser(\"inventory\"); i.add_argument(\"--surfaces\", required=True); i.add_argument(\"--out\", required=True)"
+    },
+    {
+      "fingerprint": "83ca21483ffe25d81f748c0a918fa83b395d9692187ae5a51e875235cbc30f7d",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (112 > 100)",
+      "source": "out.append({\"id\": None, \"path\": path, \"line\": 0, \"surface\": \"config\", \"surface_label\": \"harness config\","
+    },
+    {
+      "fingerprint": "84814e1a5c21a46ab6142a2e4156be6dca01d9704b022e2303a1f5f033901f2f",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[<!-- generated: 2026-10-17T00:44:29Z -->-cache-timestamp-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates______gen0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "871e687f18067f916a4c5b7a04e7bbfdead693502c635f25ee2a33f20c7986b3",
+      "count": 1,
+      "tool": "pyright",
+      "rule": "reportArgumentType",
+      "path": "scripts/prompt_audit.py",
+      "message": "Argument of type \"str | Any\" cannot be assigned to parameter \"value\" of type \"None\" in function \"__setitem__\"\n\u00a0\u00a0Type \"str | Any\" is not assignable to type \"None\"\n\u00a0\u00a0\u00a0\u00a0\"str\" is not assignable to \"None\"",
+      "source": "res[\"model\" if m.group(1) == \"model\" else \"effort\"] = m.group(2)"
+    },
+    {
+      "fingerprint": "878315eb9551ec7729951ab6839e3a9856e2ff63af12434125f5e9118fa47552",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Line too long (101 > 100)",
+      "source": "assert [r[\"model\"] for r in requests] == [\"gpt-test-a\", \"gpt-test-a\", \"gpt-test-b\", \"gpt-test-b\"]"
+    },
+    {
+      "fingerprint": "882ee33162afd4a8e4292235e13d506d695b76cc85c5052283f865557eab6258",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (107 > 100)",
+      "source": "models.append((\"omp\", f\"fallbackChains.{src}\", strip_model(v), env[\"paths\"].get(\"omp\", \"omp\")))"
+    },
+    {
+      "fingerprint": "887bc5ea703677dc666924f95a035c5dfda9949a6f212e3a6f08310f4f90d4ab",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (107 > 100)",
+      "source": "def build_env(inv: dict, labs_file=LABS_FILE, guidance_manifest=None, vault_root=None, paths=None) -> dict:"
+    },
+    {
+      "fingerprint": "89b2120147dfed2bf74e7560f44b79c0780c283bedf900d5d215846869cfb8be",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (118 > 100)",
+      "source": "out.append(finding(rec, rule, 1, f\"{n} caps markers ({per_k:.1f}/1k chars)\", conf, conf_action, note))"
+    },
+    {
+      "fingerprint": "8c29a9fca559f9bbdcb2cc623402d7d509540cda5d0b21944274d74530f5a251",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "TRY300",
+      "path": "scripts/prompt_audit.py",
+      "message": "Consider moving this statement to an `else` block",
+      "source": "return f\"{commit} {when}\""
+    },
+    {
+      "fingerprint": "8c795793386e58d152beeb158a934fae7e3ad69d0cfc459e5f2ed71f79518115",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (117 > 100)",
+      "source": "rec = {\"path\": str(f), \"readers\": [], \"kind\": \"skill\", \"owner\": \"authored\", \"surface\": \"t\", \"surface_label\": \"t\","
+    },
+    {
+      "fingerprint": "8e9d2e0755f0382e02c6b83f829720f3f6d28f44fdb0910ccd5dc2554d44461a",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (116 > 100)",
+      "source": "lines.append(f\"| {r['fid']} | `{md_escape(red(loc) if public else loc)}` | {md_escape(r['pattern'])} | \""
+    },
+    {
+      "fingerprint": "8ebf7f7f89d0c09a1e1dc94c0aab03817893fdc1949555a6193d151765a43210",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (104 > 100)",
+      "source": "\"\"\"triage.json: {assumptions, inventory_summary, findings:[{cid|custom, verdict, confidence, action,"
+    },
+    {
+      "fingerprint": "8f44004d1b777bbd860e36d34060828cbf1bd4fd28e10a60a2aa7756bfa16cbd",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (103 > 100)",
+      "source": "s += [\"### Counts by category (reviewed findings)\", \"\", \"| Category | Findings |\", \"|---|---|\"]"
+    },
+    {
+      "fingerprint": "911241970098444d71844ad8f115a31d3a69f2272efb54aea799aec59ab9e281",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "RET507",
+      "path": "scripts/runtime_probe.py",
+      "message": "Unnecessary `else` after `continue` statement",
+      "source": "else:"
+    },
+    {
+      "fingerprint": "912e1162c4b3b85e20c28849050e1eb02f42736cade7be097b266a12c52e81dd",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (110 > 100)",
+      "source": "\"timestamp\": when, \"input_tokens\": usage[0], \"cached_input_tokens\": usage[1]}"
+    },
+    {
+      "fingerprint": "922ec2ae68c12d9a692992155a6fbe98c4271cbc6db7abd73acf005b8e509760",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[## Historical August Experiment\\nLast updated: 2026-08-11\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates____H1/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "926e18df5e4fbf4bf1dd652076475dd80337a703b58f9189d2f6f55de8b8388c",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (106 > 100)",
+      "source": "target = w(home / \"proj\" / \"CLAUDE.md\", \"# P\\n**IMPORTANT: You MUST follow these:**\\nbody by Alice\\n\")"
+    },
+    {
+      "fingerprint": "92f43bdb1ac6a28664a378d30199356b92f8fd2e5044f5c967af7720c4c46920",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (101 > 100)",
+      "source": "\"cross_lab_note\": None, \"evidence\": f\"{len(recs)} variants / {len(paths)} files\","
+    },
+    {
+      "fingerprint": "93c23309d60c7d167221f2abf47c57bcd3f7c3ed627f6cce7aa786ba51893fd0",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "SIM115",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use a context manager for opening files",
+      "source": "text = open(p, encoding=\"utf-8\", errors=\"replace\").read()"
+    },
+    {
+      "fingerprint": "95fdbde1a4f9e87d226d71cbd358ca0edbe6f8cb1a19d9415e53d7858b64be94",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (111 > 100)",
+      "source": "assert inv[\"skipped\"] == [{\"path\": str(evicted), \"reason\": \"dataless (cloud placeholder, not downloaded)\"}]"
+    },
+    {
+      "fingerprint": "962596d88241772d7637af3d22074458e005789e8113c7e6552dc898ad1e0a0f",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (102 > 100)",
+      "source": "\"targets, multi-harness surfaces and a drift pass. Read-only: nothing was applied.\", \"\"]"
+    },
+    {
+      "fingerprint": "9646c1dda235ca6919342eca238b682dbd1f3f76a560d92b49bcf5b721619edf",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Line too long (102 > 100)",
+      "source": "@pytest.mark.parametrize(\"topic\", [\"Changelog\", \"History\", \"Examples\", \"Example\", \"Samples\", \"Demos\"])"
+    },
+    {
+      "fingerprint": "98385d9304934b5083c647ac339cf80010eef89a1255b57544f8ef38a2d42ef3",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (128 > 100)",
+      "source": "\"findings\": [{\"fid\": \"F01\", \"path\": str(target), \"line\": 2, \"surface_label\": \"repo\", \"category\": \"pressure-language\","
+    },
+    {
+      "fingerprint": "98da0e640b4850125a92598989700932536d36a0ef16548d42f5e2bb781d20c3",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (118 > 100)",
+      "source": "s += [\"Method: Anthropic's `/claude-api prompt-audit` (anthropics/skills, Apache-2.0), extended to multi-lab \""
+    },
+    {
+      "fingerprint": "99dda7e399b38c58d3f1ae455db4ac3273b027f0ff0bfd15a5332ccdc26e2443",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (104 > 100)",
+      "source": "\"pattern\": \"p\", \"labs\": [\"all\"], \"confidence\": \"medium\", \"action\": \"rewrite\", \"why\": \"w\"}]"
+    },
+    {
+      "fingerprint": "9d67b3f1e57d6c09363b0f20fc45f473eed4dc7aa9ebca8c0c87a9b841a415b6",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (103 > 100)",
+      "source": "env[\"deprecated_paths\"] = jload(surfaces_file).get(\"deprecated_paths\", []) if surfaces_file else []"
+    },
+    {
+      "fingerprint": "9ddf58f198373b01ae301f981bb36a31cbbe6a7b688f58d2e347e6a3459889c4",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_inventory_skips_dataless_placeholders",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_inventory_skips_dataless_0/a/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"inv = pa.inventory(str(surfaces))\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(p, encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(p, encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "9de873199aeae31729289aaf2c0fbb073e16e7b7e81c4d99fe91dca5f881d166",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (118 > 100)",
+      "source": "f = w(tmp_path / \"AGENTS.md\", 'Include a \"reasoning\" field in every JSON reply.\\nCall it with temperature: 0.2\\n')"
+    },
+    {
+      "fingerprint": "9df99e2c9bdd0eecd65b376f5746e8a0d9f651ab7fa2daece1481ea32651ac28",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (117 > 100)",
+      "source": "f\"profiles resolve auxiliary.{role} to different models; the older one is likely a copied default \""
+    },
+    {
+      "fingerprint": "9ec5136400af511a6133572f1cddfae71103af4253e99df6114506de78c115e3",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[Last updated: 2026-10-17 14:03 by\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates_Last0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "9f247bc8cbda6361d4b9cf04050dd114449295a4648897cc7ae75aeb82132ede",
+      "count": 1,
+      "tool": "pyright",
+      "rule": "reportArgumentType",
+      "path": "scripts/prompt_audit.py",
+      "message": "Argument of type \"set[str | None]\" cannot be assigned to parameter \"iterable\" of type \"Iterable[SupportsRichComparisonT@sorted]\" in function \"sorted\"",
+      "source": "env = {\"labs\": jload(labs_file), \"configured\": sorted({strip_model(m) for m in configured if m}),"
+    },
+    {
+      "fingerprint": "a0ac33581346ed161fec02d25fc4e3944093af3ae7e8087b5671a9636950b154",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_excludes_sections_starting_with_topic[Demos]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_excludes_sections_s5/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, \\\"## \\\" + topic + \\\" of prior runs\\\\nGenerated: 03:04\\\\n\\\") == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "a230afcf47f52e0e6a9deb4baed3343e844f2394757d130ad064912ade78371c",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (105 > 100)",
+      "source": "candidate = finding(rec, rule, i, ln.strip()[:240], conf, \"flag\", note, match=m.group(0))"
+    },
+    {
+      "fingerprint": "a24b434603427890643f0940a92f94cc1b860de179ad078d56acc331a2e50ecf",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (105 > 100)",
+      "source": "assert any(h[\"rule\"] == \"1b-show-reasoning\" for h in pa.scan_file(rec, [rules[\"1b-show-reasoning\"]]))"
+    },
+    {
+      "fingerprint": "a46ccd57b4c511433c520434f2c2a543420dfe766957e7e0ff2f707f0af12dc7",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (123 > 100)",
+      "source": "\"why\": f\"{len(recs)} different versions of '{name}' across {len(paths)} files; a fix made in one fork \""
+    },
+    {
+      "fingerprint": "a48b646da1cda3f408762ae913d0f8ea2fb346cf4a5719c680c051b1868a8ff5",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (101 > 100)",
+      "source": "env = {\"labs\": jload(labs_file), \"configured\": sorted({strip_model(m) for m in configured if m}),"
+    },
+    {
+      "fingerprint": "a4e5daaca3541788a4348a61f08c2913a53c654e5865ff0059bd2f43b9a8eb17",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Tasks remaining: 12-cache-live-number-low]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Tasks_re0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "a5392c7685e37838004f492d195dcf49bcd231c03c88ec275a36780b7f7b9183",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[* 2026-10-17 09:00 call\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates___201/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "a9dc3b2397da4c108be344aaefbf173ba98b4a3c0ff9623ff327e52f569b7e75",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "RUF005",
+      "path": "scripts/prompt_audit.py",
+      "message": "Consider `[\"\", \"## Findings\", \"\", *table(public), \"\"]` instead of concatenation",
+      "source": "s += [\"\", \"## Findings\", \"\"] + table(public) + [\"\"]"
+    },
+    {
+      "fingerprint": "aa31cfde0c595a9723deb59a7b5eb95a9f38e5d215a17e0ebfd76d3664682d4c",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_exclusions_preserve_live_metadata[    - ]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_exclusions_preserve3/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, prefix + \\\"Generated: 2026-10-17T00:44:29Z\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "aa495ab40f131eff6c99bdb1010090f9bd0b9e23d02f30c71c7b144adbbf485e",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E702",
+      "path": "scripts/prompt_audit.py",
+      "message": "Multiple statements on one line (semicolon)",
+      "source": "r.add_argument(\"--out\", required=True); r.add_argument(\"--public-config\")"
+    },
+    {
+      "fingerprint": "aafb1fbff7e7efb18ab800d7f0457b43d9f758b8d73af334f80473a9414cf448",
+      "count": 1,
+      "tool": "format",
+      "rule": "ruff-format",
+      "path": "scripts/runtime_probe.py",
+      "message": "File needs formatting",
+      "source": "3336b715c78be5daa92ec561da1228d5803803a0a19edf08d95413c2805caa6a"
+    },
+    {
+      "fingerprint": "ab9cbb81be9a9bec13dc79e1da9505ebf752ac858d4bde0d769291fe02a8e6c7",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Line too long (104 > 100)",
+      "source": "models = rp.cache_probe(str(tmp_path / \"claude\"), str(tmp_path / \"codex\"), 30)[\"harnesses\"][\"codex\"]"
+    },
+    {
+      "fingerprint": "acd70fff7043b9cdc6ce0427fb4d339ddb2d060d9c2d4693700d045d0b769119",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[1. 2026-10-17 09:00 gym\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates_1__20/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "acee5f5934875242d98d7f889fd60af260995a7e993e2fb3aed4df50a6f462fc",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "SIM108",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use ternary operator `conf_action = \"flag\" if rec[\"owner\"] != \"authored\" else rule[\"action\"]` instead of `if`-`else`-block",
+      "source": "if rec[\"owner\"] != \"authored\":"
+    },
+    {
+      "fingerprint": "ae362c2310984c9349251823546d4a92b8e6521bc1f99c36b7b46e3a8f85da4e",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "SIM115",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use a context manager for opening files",
+      "source": "head = open(path, encoding=\"utf-8\", errors=\"replace\").read(2000)"
+    },
+    {
+      "fingerprint": "b030060afc2213e1054845d666e288a102e0b52db3f9991010b50ebcd02f4b73",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (104 > 100)",
+      "source": "r = subprocess.run([\"git\", \"-C\", d, \"blame\", \"--porcelain\", \"-L\", f\"{line},{line}\", \"--\", path],"
+    },
+    {
+      "fingerprint": "b081b4f3ee8cfea14c9ab4ede8766c30336ab0e0e0efdd0a63a2b9346ab2e565",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (109 > 100)",
+      "source": "s += [\"## Inventory\", \"\"] + [f\"- {red(x) if public else x}\" for x in tri[\"inventory_summary\"]] + [\"\"]"
+    },
+    {
+      "fingerprint": "b0e8b3ee166fa3eb2933b9d9c746194c03cd1a40890c77a304b232bdadaafa46",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (103 > 100)",
+      "source": "{\"path\": str(lone), \"readers\": codex, \"harness\": \"codex\", \"copies\": [str(lone)]}]}"
+    },
+    {
+      "fingerprint": "b0ef31d3b0960878fa788ec44369d06442614bb0c3a32a8acb5c32a95d7e50a0",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_scan_skips_fences_and_flags_vendor",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_scan_skips_fences_and_fla0/s/SKILL.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"assert pa.scan_file(rec, rules)[0][\\\"action\\\"] == \\\"flag\\\"\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "b102a523381de3a4477efe85910152edcbf9300df3839ea5837b4e637094a141",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (127 > 100)",
+      "source": "{\"id\": \"r\", \"label\": \"r\", \"harness\": \"multi\", \"kind\": \"instructions\", \"globs\": [str(tmp_path / \"*\" / \"AGENTS.md\")]}]}))"
+    },
+    {
+      "fingerprint": "b14db834eb9062699b16d13f78f99365c624b109099a6b8d16c1156a90bea0ff",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[7 tasks left-cache-live-number-low]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_7_tasks_0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "b47932c6766dcdb5aa74277033d2c7b4e23fd1d3fd79d47d16e92eca1a03047f",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[> Generated: 03:04\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates___Ge0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "b5fb2ae50b84deaa269b4dea809e5a2781b6130357f80b25b65cb2f6e0edf7d3",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (104 > 100)",
+      "source": "print(f\"{s_['status']:5} {s_['lab']:10} {s_['id']:32} {s_.get('bytes', s_.get('error',''))}\""
+    },
+    {
+      "fingerprint": "b767793a5d7db41b42f8e1eca9a7acbf63443bfd490e69211fe63835ddc9ac8a",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[~~~text\\nGenerated: 03:04\\n~~~\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates____t1/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "b7716f02423c9a654d5d265c8bae0108ae8b8102568aa4fc57d900c4fe5b478b",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[Turn: 3 max\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates_Turn0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "b7f7ed154dc3b4b7f5d74bdaa7e61b0882da11166e0814fc0c126bf4fbf3651b",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (108 > 100)",
+      "source": "out.append(finding(rec, rule, 2, f\"description is {len(d)} chars\", conf, conf_action, note))"
+    },
+    {
+      "fingerprint": "b9c057125f02158e8006ff37602ca3251edc4769977ffd2f6abcac2a3d424bc0",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[```text\\nCurrent date: {{date}}\\n```\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates____t0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "bab9cde201c56a507ea14e0ca165f0efb55bced518a17f04d42f2e99fbfd7453",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (105 > 100)",
+      "source": "edit_errors.append(f\"{e['finding']}: old text matches {text.count(e['old'])} times in {src}\")"
+    },
+    {
+      "fingerprint": "bd5902bf31fb7f4755a8bdc8b7798504aca326e843944043c5e11df4c552ebb3",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (112 > 100)",
+      "source": "{\"id\": \"ok\", \"url\": \"https://a\", \"verified_on\": \"2026-09-01\", \"model_id_regex\": \"gpt-[0-9][0-9a-z.-]*\"},"
+    },
+    {
+      "fingerprint": "c15ef8b669178161b7d976ee057b768615207cccba00040d64f1baa987960ecf",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_excludes_sections_starting_with_topic[Samples]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_excludes_sections_s4/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, \\\"## \\\" + topic + \\\" of prior runs\\\\nGenerated: 03:04\\\\n\\\") == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "c2a7ada4b03de7f9f2455e581b18566b3a950bb09aa8a94119c394ca8c2de74f",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (115 > 100)",
+      "source": "loc = (public_location(r, alias) if public else r[\"path\"]) + (f\":{r['line']}\" if r.get(\"line\") else \"\")"
+    },
+    {
+      "fingerprint": "c499e4cc908abc09f3a4ccadbef37b01f87fcd6ea35af2eab916a3423ac8ecde",
+      "count": 2,
+      "tool": "ruff",
+      "rule": "SIM115",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use a context manager for opening files",
+      "source": "text = open(rec[\"path\"], encoding=\"utf-8\", errors=\"replace\").read()"
+    },
+    {
+      "fingerprint": "c529b833f4a9a69d6333b84633c59c39435cacdafec97c84e7c09858d07ef37e",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (105 > 100)",
+      "source": "f\"{missing} does not exist; the tree was likely reorganised after this was written.\")"
+    },
+    {
+      "fingerprint": "c6717e5386c2b4421849dace2675f1ee89586980d62c8a484d915b1a1db4ae75",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (114 > 100)",
+      "source": "fields = (\"input_tokens\", \"cache_read_input_tokens\", \"cache_creation_input_tokens\") if kind == \"claude\" else ("
+    },
+    {
+      "fingerprint": "c6c9868a655038d9ce07a8e6a719adb7d1ed5c1f81e17bbbc9bb5c999aa86187",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (106 > 100)",
+      "source": "out.append(finding(rec, rule, i, ln.strip()[:240], conf, conf_action, note, match=m.group(0)))"
+    },
+    {
+      "fingerprint": "c870a575f5ad585995f138a5b2ed08b060797f25c86caea9be3ee96edee0d919",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (108 > 100)",
+      "source": "\"\"\"Return {'model': top-level model.default, 'effort': agent reasoning_effort, 'aux': {role: model}}.\"\"\""
+    },
+    {
+      "fingerprint": "c978eb910dc736f14700b9168689a37d94f44ec86937ca4c754cce86ab584f73",
+      "count": 2,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_report_public_redaction_edits_and_leakcheck",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_report_public_redaction_e0/home/proj/CLAUDE.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"res = pa.render_report(str(tf), str(cands), str(tmp_path / \\\"out\\\"), pub)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(src, encoding=\\\"utf-8\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(src, encoding=\\\"utf-8\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "cbda1f78a66d1620af21460b6ed838c0101af0d762384a09113ea91ddc08d243",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E741",
+      "path": "scripts/prompt_audit.py",
+      "message": "Ambiguous variable name: `l`",
+      "source": "l = sub.add_parser(\"leakcheck\"); l.add_argument(\"files\", nargs=\"+\"); l.add_argument(\"--public-config\", required=True)"
+    },
+    {
+      "fingerprint": "cc81ac099d685be84ece207078e615dd18f16bf37434ba373a64df0062ef2d04",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_report_public_redaction_edits_and_leakcheck",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_report_public_redaction_e0/out/proposed.public.diff' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"assert pa.leakcheck(outs, [\\\"Alice\\\"]) == []\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(p, encoding=\\\"utf-8\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(p, encoding=\\\"utf-8\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "ccc8560072f80cc5afd6a262c85a7c93114ac989de830d81af3a7ecd36a837ab",
+      "count": 1,
+      "tool": "pyright",
+      "rule": "reportOptionalSubscript",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Object of type \"None\" is not subscriptable",
+      "source": "assert pa.classify_path(str(tmp_path / \".tool\" / \"cfg\"))[0] == \"tooldir\""
+    },
+    {
+      "fingerprint": "ce40684fa484425f3df60426ae3fbadf88f584e9f6346701d630aa9607915d46",
+      "count": 1,
+      "tool": "pyright",
+      "rule": "reportOptionalSubscript",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Object of type \"None\" is not subscriptable",
+      "source": "assert pa.classify_path(str(tmp_path / \"Nope\" / \"x\"))[0] == \"root\""
+    },
+    {
+      "fingerprint": "cf1d129f4978fa8d1b78966f407fe081bfb29314bcc07791a403f186a1b19397",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_rules_track_current_lab_guidance",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_rules_track_current_lab_g0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"assert any(h[\\\"rule\\\"] == \\\"4-sampling-params\\\" for h in pa.scan_file(rec, [rules[\\\"4-sampling-params\\\"]]))\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "d01b711013cf94b45a41df0faf94dc79d0ac2f92a0fc9684c818c1cfed91b2f7",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (101 > 100)",
+      "source": "CACHE_SECTION_RE = re.compile(r\"^(?:changelog|history|historical|examples?|samples?|demos?)\\b\", re.I)"
+    },
+    {
+      "fingerprint": "d22adaf3eba9bf5b18bb76b420e3b0883abf47bca1917ed92ae45bdeb344dbc8",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (109 > 100)",
+      "source": "rec = {\"path\": str(f), \"kind\": \"instructions\", \"owner\": \"authored\", \"surface\": \"t\", \"surface_label\": \"t\","
+    },
+    {
+      "fingerprint": "d2c74866c655149da2a10f0badef488be054220e76ecdcd714d43b9cd3b9ad47",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Run count: 42-cache-live-number-low]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Run_coun0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "d51e1cd216fe5faee95f3f08c0aa6e026e0546e670bc6202bedec22c2d08093e",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[Session: 2 max\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates_Sess0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "d771dc481840d36147b7a695bd9bd53a208f437c46343fc3c7751ed08bfb441f",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "PERF401",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use `list.extend` to create a transformed list",
+      "source": "models.append((\"omp\", f\"fallbackChains.{src}\", strip_model(v), env[\"paths\"].get(\"omp\", \"omp\")))"
+    },
+    {
+      "fingerprint": "d94e8dc286b726c2672e7e887db289c7dcd69e6dfd269796ab983bd8000eeaf7",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[2026-01-02T03:04:05Z-cache-timestamp-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_2026_01_0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "d96c16cbb22d2ba59fff13c7d391047d17fd2bce8c7bac4896d6db525834c1b1",
+      "count": 1,
+      "tool": "pyright",
+      "rule": "reportArgumentType",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Argument of type \"dict[Any, Any]\" cannot be assigned to parameter \"headers\" of type \"HTTPMessage\" in function \"redirect_request\"",
+      "source": "new = pa.Redirect308().redirect_request(req, None, 308, \"moved\", {}, \"https://b.example/y\")"
+    },
+    {
+      "fingerprint": "dc6a54d1728814dfd4a30829bd7906ca5c73f8cdf53e0e29b85353cf16e26d44",
+      "count": 3,
+      "tool": "ruff",
+      "rule": "E702",
+      "path": "scripts/prompt_audit.py",
+      "message": "Multiple statements on one line (semicolon)",
+      "source": "s.add_argument(\"--guidance\"); s.add_argument(\"--vault\"); s.add_argument(\"--surfaces\"); s.add_argument(\"--no-blame\", action=\"store_true\")"
+    },
+    {
+      "fingerprint": "dd0ce20e1fc2d5219b96369261d44ed57331670a9c84640c936c7c4266cf4729",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "SIM115",
+      "path": "scripts/prompt_audit.py",
+      "message": "Use a context manager for opening files",
+      "source": "text = open(p, encoding=\"utf-8\").read()"
+    },
+    {
+      "fingerprint": "dd8e1f2d27162ef2a2a38a102f9a1fed67cb803306f05cfcba263fca3295a82f",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (124 > 100)",
+      "source": "res[\"model_settings\"] = {k: {\"effortLevel\": (v or {}).get(\"effortLevel\")} for k, v in ms.items() if isinstance(v, dict)}"
+    },
+    {
+      "fingerprint": "ddaf6c5cf796fac3c71645e07fe7eb82c129ac04b6b125125242b59a52c01e70",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E702",
+      "path": "scripts/prompt_audit.py",
+      "message": "Multiple statements on one line (semicolon)",
+      "source": "f = sub.add_parser(\"fetch-guidance\"); f.add_argument(\"--cache\", required=True)"
+    },
+    {
+      "fingerprint": "df3083592a6273b1fd2ea1bc033e5daead44446234c1465352a3d754632cbe75",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (108 > 100)",
+      "source": "\"edits\": [{\"finding\": \"F01\", \"path\": str(target), \"old\": \"**IMPORTANT: You MUST follow these:**\","
+    },
+    {
+      "fingerprint": "df9589100c713a669bd5bd6019e99958afd232288a07fdc2d918957bdd58f1a1",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (112 > 100)",
+      "source": "cfind(\"claude-code\", env[\"paths\"].get(\"claude_code\", \"claude settings\"), f\"modelSettings.{key}\","
+    },
+    {
+      "fingerprint": "e0490f9373dd571b40647326ba23455a123349c6789832bcd6084aed2f2ca301",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[As of 2026-01-02 we used the old deployment.\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates_As_o0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "e08ea949f7734af5f9e982c7c696e7e02091c16e4a5589834f3bc1ab816eb155",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Line too long (110 > 100)",
+      "source": "models = rp.cache_probe(str(tmp_path / \"claude\"), str(tmp_path / \"codex\"), 30)[\"harnesses\"][\"claude_code\"]"
+    },
+    {
+      "fingerprint": "e0935b4d24adb58c682f75f615f82d68144652d1bb52f411930785ae139f2477",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (122 > 100)",
+      "source": "\"claude_code\": {f\"{m}@{e}\": n for (m, e), n in sessions(f\"{claude_dir}/*/*.jsonl\", \"claude\", last).most_common()},"
+    },
+    {
+      "fingerprint": "e0a4824201e1af9d85b187f6e33780a8aa6e8f06fd5822a54fc2ec08a48d0970",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_prompt_audit.py::test_codex_override_shadows_agents_md",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_codex_override_shadows_ag0/codex/AGENTS.override.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_prompt_audit.py\", \"source\": \"assert pa.shadow_drift(inv) == []\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"live = os.path.isfile(ov) and open(ov, encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read().strip()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"live = os.path.isfile(ov) and open(ov, encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read().strip()\"}}"
+    },
+    {
+      "fingerprint": "e1a8dae791759350185052849ffd7de36b0dc676af766f7fb2f6a1cfbac1d8e7",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (120 > 100)",
+      "source": "ap.add_argument(\"--cache\", action=\"store_true\", help=\"usage-only cache evidence (last N session files per harness)\")"
+    },
+    {
+      "fingerprint": "e57b1b2cf33a9843283f922f748ff0e1bf2d664e0f8ba6f747de939de788885f",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (112 > 100)",
+      "source": "files = sorted(glob.glob(os.path.expanduser(pattern)), key=os.path.getmtime)[-last:] if last > 0 else []"
+    },
+    {
+      "fingerprint": "e7755853dfb8a2e3d8002be0ce2deb4315bc319f34c0800f2cd7354d2125e71c",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Last updated: 03:04-cache-timestamp-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Last_upd0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "e77982fd50ef270076304e79ea085a5001fbebf1b95533b07d345c56a1f47b51",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (112 > 100)",
+      "source": "\"truncation\": \"Drift - generated instruction block cut mid-sentence\"}[category],"
+    },
+    {
+      "fingerprint": "e87426ac72f70d8be0bfc5c37796d4e21123a866f862f6265563cf22daef5a34",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (119 > 100)",
+      "source": "lines = [\"| ID | Location | Pattern | Evidence | Why stale | Conf | Action |\", \"|---|---|---|---|---|---|---|\"]"
+    },
+    {
+      "fingerprint": "e8b86c84740d963f57e2324cc0ecd445be4b65497dda11697646ed716a9b2779",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (105 > 100)",
+      "source": "assert any(h[\"rule\"] == \"4-sampling-params\" for h in pa.scan_file(rec, [rules[\"4-sampling-params\"]]))"
+    },
+    {
+      "fingerprint": "e8fbc42c4f0eae8f98a84ca6e85acaad7caf19643e5ba495253b26829229f7de",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (121 > 100)",
+      "source": "out.append(finding(rec, rule, 1, f\"{rec['chars']} chars, no references/ split\", conf, conf_action, note))"
+    },
+    {
+      "fingerprint": "ea2e30625125c5b3b57c6564096456d3af7274bcc307333def68fccecbddf4b2",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (109 > 100)",
+      "source": "if has_records or row.get(\"type\") != \"event_msg\" or payload.get(\"type\") != \"token_count\":"
+    },
+    {
+      "fingerprint": "eb1f61e43b1ebed688709729d6892a4a7c412bce5ad0096a1b861de275356c18",
+      "count": 1,
+      "tool": "pyright",
+      "rule": "reportOptionalSubscript",
+      "path": "scripts/prompt_audit.py",
+      "message": "Object of type \"None\" is not subscriptable",
+      "source": "return f\"{top[0]}.x\" if ver[0] < top[0] else None"
+    },
+    {
+      "fingerprint": "ec87b1f9ffa6d969ac2c0f2a0eb1d0032efaca114a7174967833cf5b56baf81a",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (118 > 100)",
+      "source": "out.append({\"id\": None, \"path\": newest[\"path\"], \"line\": 0, \"surface\": \"forks\", \"surface_label\": \"skill forks\","
+    },
+    {
+      "fingerprint": "edb0d49ada29d858789f4a74dcdd0f31b5a1bed14e8035531cdadd68cb4345f0",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (105 > 100)",
+      "source": "tri = {\"assumptions\": [\"Alice's stack\"], \"inventory_summary\": [\"1 file\"], \"summary\": \"Alice summary\","
+    },
+    {
+      "fingerprint": "ee691e1ae35a636bee3c75011319c73dd30283e4a0b53082af902536adae5289",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (113 > 100)",
+      "source": "\"paths\": {\"hermes\": {\"a\": \"a.yaml\", \"b\": \"b.yaml\"}, \"claude_code\": \"settings.json\", \"omp\": \"omp.yml\"}}"
+    },
+    {
+      "fingerprint": "ee9a17f913e3e96fe0ce8fa3ed0f24114994ed1dd2629dd3f7f6b0bf1de3efb5",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_cache_reuse.py",
+      "message": "Line too long (110 > 100)",
+      "source": "counts = rp.cache_probe(str(root), str(tmp_path / \"codex\"), 30)[\"harnesses\"][\"claude_code\"][\"claude-test\"]"
+    },
+    {
+      "fingerprint": "ef7d1ec2c605f1a39fff41c46f0ef38e0b1d39f257d82ec29c62876ee5d91fdb",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "B007",
+      "path": "scripts/prompt_audit.py",
+      "message": "Loop control variable `dp` not used within loop body",
+      "source": "for dp, dn, fn in os.walk(vault_root):"
+    },
+    {
+      "fingerprint": "efcf7b97ceb62af04fc1aa2f3462ca2b7778210017ba5117fccc8839a8102a82",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (102 > 100)",
+      "source": "\"input_tokens\": usage[0], \"cached_input_tokens\": usage[1]}"
+    },
+    {
+      "fingerprint": "efd813d65883dcfb16400c789c7909b5a32cb54e3a39c0164148a42ddcf74e9b",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_frontmatter_and_section_boundary",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_frontmatter_and_sec0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert [h[\\\"line\\\"] for h in cache_hits(tmp_path, text)] == [7, 2]\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "f30fda54a6db13249558c04565bce2d9912de4602f88d18df09c3cfacc2d5da2",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (126 > 100)",
+      "source": "\"configs\": {\"hermes\": {\"a\": {\"aux\": {\"vision\": \"gemini-2.5-flash\"}}, \"b\": {\"aux\": {\"vision\": \"gemini-3.7-flash\"}}},"
+    },
+    {
+      "fingerprint": "f330d021b8a4cdf508bf69b01207c7938b9cf3cf8b2611ade839a232ab386490",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (109 > 100)",
+      "source": "\"the generated block hits its character budget and is cut mid-rule; every session loads a \""
+    },
+    {
+      "fingerprint": "f382fe5ae82ae39e6ab17515c56d710b49317d109ee9d0e5e26d24e276b455cb",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[Example: Current date: {{date}}\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates_Exam0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "f3e807b8461c0c2958f5412afd78e4f18b51c31a8ec7b229ae666c7d73f5c707",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/runtime_probe.py",
+      "message": "Line too long (101 > 100)",
+      "source": "Usage: runtime_probe.py [--claude-dir ~/.claude/projects] [--codex-dir ~/.codex/sessions] [--last 30]"
+    },
+    {
+      "fingerprint": "f4b370a6d0600dbeffb6d45a7adfd81c1c918dc5850a8a2baeeb992c9c4b47bd",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_excludes_sections_starting_with_topic[Example]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_excludes_sections_s3/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, \\\"## \\\" + topic + \\\" of prior runs\\\\nGenerated: 03:04\\\\n\\\") == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "f7bc6a0577fc4370493e747c5501116b0a3ec870c4628c68d8072a81a7adf77b",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "tests/test_prompt_audit.py",
+      "message": "Line too long (104 > 100)",
+      "source": "(tmp_path / \"codex\" / \"AGENTS.override.md\").write_text(\"  \\n\")  # empty override is skipped by Codex"
+    },
+    {
+      "fingerprint": "f810ff1f2b88d30efd6524fe16967141d1bf3077ba24734d5633a95640b23d88",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (122 > 100)",
+      "source": "r = sub.add_parser(\"report\"); r.add_argument(\"--triage\", required=True); r.add_argument(\"--candidates\", required=True)"
+    },
+    {
+      "fingerprint": "f81255bdd2f7e034917692da0161bc847d4223d81006b03f62e16ad75d4c045a",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_excludes_sections_starting_with_topic[History]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_excludes_sections_s1/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, \\\"## \\\" + topic + \\\" of prior runs\\\\nGenerated: 03:04\\\\n\\\") == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "f878b1d298c4579edfd3e839f62d3e6e22f396b9c4311aada403e463dd51f880",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (122 > 100)",
+      "source": "top = subprocess.run([\"git\", \"-C\", d, \"rev-parse\", \"--show-toplevel\"], capture_output=True, text=True, timeout=10)"
+    },
+    {
+      "fingerprint": "f87bf990acd496bde9c960ffd1e8d0ad7b6ec0481255d488dec3b0370fd004fb",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (125 > 100)",
+      "source": "\"medium\", f\"override is keyed to {key}; the configured model is {active}. Keys match exact model IDs, \""
+    },
+    {
+      "fingerprint": "fa0f423682fc4d2ce99ad151c9664cc94385478ea144609e96ebcee6b8898b27",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Last updated: 2026-10-17 14:03 ET-cache-timestamp-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Last_upd2/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "fbd594e9c4c6b14ffc9d1b58243767e61f615901722a02409cd4c398af363bb8",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_candidates[Session ID: 00000000-0000-4000-8000-000000000001-cache-generated-id-medium]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_candidates_Session_0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"hits = cache_hits(tmp_path, line + \\\"\\\\n\\\")\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "fdc978dc1b49c0d7bd89366e95a599149e3b7b8b3c3e504e68d49c4e75f8bad3",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (102 > 100)",
+      "source": "return (f\"gpt-{m.group(3)}\" if m.group(3) else \"gpt\"), (int(m.group(1)), int(m.group(2) or 0))"
+    },
+    {
+      "fingerprint": "fe36d7a3202b0a5cdd3550acd6e61363896eb602421b22b8e2fae46e6050edf4",
+      "count": 1,
+      "tool": "pytest",
+      "rule": "builtins.ResourceWarning",
+      "path": "tests/test_cache_reuse.py::test_cache_non_candidates[## Examples\\nCurrent date: {{date}}\\n]",
+      "message": "unclosed file <_io.TextIOWrapper name='<fixtures>/test_cache_non_candidates____E0/AGENTS.md' mode='r' encoding='utf-8'>",
+      "source": "{\"allocation\": [{\"path\": \"tests/test_cache_reuse.py\", \"source\": \"assert cache_hits(tmp_path, text) == []\"}, {\"path\": \"tests/test_cache_reuse.py\", \"source\": \"return pa.scan_file(instruction(tmp_path, text, always_loaded), rules)\"}, {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}], \"phase\": \"runtest\", \"site\": {\"path\": \"scripts/prompt_audit.py\", \"source\": \"text = open(rec[\\\"path\\\"], encoding=\\\"utf-8\\\", errors=\\\"replace\\\").read()\"}}"
+    },
+    {
+      "fingerprint": "ffb000a6d063d47333415c88fde2f4f8f8f7e68ea64ae7ac7dabc4603874ac76",
+      "count": 1,
+      "tool": "ruff",
+      "rule": "E501",
+      "path": "scripts/prompt_audit.py",
+      "message": "Line too long (101 > 100)",
+      "source": "f\"{md_escape(ev)} | {md_escape(why)} | {r['confidence']} | {r['action']} |\")"
+    }
+  ]
+}

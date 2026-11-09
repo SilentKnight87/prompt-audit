@@ -2,3 +2,6 @@ runs/
 __pycache__/
 .cache/
 .verify/
+.venv/
+.pytest_cache/
+.ruff_cache/

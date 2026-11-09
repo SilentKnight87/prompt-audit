@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+ROOT=$(git rev-parse --show-toplevel)
+exec "${PYTHON:-python3}" "$ROOT/tools/strip_ai_trailers.py" "$1"
